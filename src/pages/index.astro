@@ -28,7 +28,7 @@ const keynotes = speakers.filter((s) => s.role === "keynote");
   )}
 
   {hasPage("key-dates") && (
-    <section class="section section--rule">
+    <section class="section section--alt">
       <div class="container">
         <SectionHeading title="Key dates">
           <a class="btn btn--ghost btn--small" href={url("key-dates")}>All dates</a>
@@ -39,7 +39,7 @@ const keynotes = speakers.filter((s) => s.role === "keynote");
   )}
 
   {sponsors.length > 0 && (
-    <section class="section section--rule">
+    <section class="section">
       <div class="container"><SponsorStrip /></div>
     </section>
   )}

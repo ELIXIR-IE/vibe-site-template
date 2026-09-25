@@ -1,7 +1,8 @@
 /* ==========================================================================
    Design tokens. Change the look of the whole site here.
    Colours for the logo files live in scripts/build-logo.mjs; keep them in step.
-   The site is light only: white background, no dark mode.
+   Light only: white page, flat light-teal banners, light-grey alternate
+   sections. No dark mode and no gradients.
    ========================================================================== */
 
 :root {
@@ -33,7 +34,9 @@
   --c-accent-soft: var(--c-coral-mist);
   --c-link: var(--c-teal);
   --c-focus: var(--c-coral);
-  --c-bed: #d5ece9;            /* the island behind the wells in the mark */
+  --c-bed: #c8e2de;            /* the island behind the wells (a shade darker than the band) */
+  --c-band: #e3f1ef;           /* flat light teal: hero and page title bands */
+  --c-alt: #f4f6f7;            /* light grey: alternate sections and footer */
 
   /* Type */
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;

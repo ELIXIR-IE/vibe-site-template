@@ -48,6 +48,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 .section { padding-block: var(--space-8); }
 .section--rule { border-top: 1px solid var(--c-border); }
+.section--alt { background: var(--c-alt); border-block: 1px solid var(--c-border); }
 
 .stack { display: grid; gap: var(--space-4); align-content: start; }
 .stack-lg { display: grid; gap: var(--space-6); align-content: start; }

@@ -88,3 +88,29 @@
     - { name: Belfast, lat: 54.603, lon: -5.929 }
     - { name: Coleraine, lat: 55.148, lon: -6.676 }
     - { name: Magee (Derry~Londonderry), lat: 55.006, lon: -7.317 }
+- name: Technological University of the Shannon
+  short: TUS
+  campuses:
+    - { name: Athlone, lat: 53.418, lon: -7.905 }
+    - { name: Limerick (Moylish), lat: 52.674, lon: -8.649 }
+    - { name: Thurles, lat: 52.679, lon: -7.813 }
+    - { name: Clonmel, lat: 52.355, lon: -7.700 }
+    - { name: Ennis, lat: 52.845, lon: -8.982 }
+- name: Dundalk Institute of Technology
+  short: DkIT
+  campuses:
+    - { name: Dundalk, lat: 54.011, lon: -6.403 }
+- name: Marine Institute
+  campuses:
+    - { name: Oranmore (Galway), lat: 53.269, lon: -8.935 }
+    - { name: Newport (Mayo), lat: 53.930, lon: -9.560 }
+- name: Agri-Food and Biosciences Institute
+  short: AFBI
+  campuses:
+    - { name: Belfast, lat: 54.567, lon: -5.954 }
+    - { name: Hillsborough, lat: 54.459, lon: -6.080 }
+    - { name: Loughgall, lat: 54.405, lon: -6.605 }
+- name: National Institute for Bioprocessing Research and Training
+  short: NIBRT
+  campuses:
+    - { name: Dublin, lat: 53.297, lon: -6.206 }
