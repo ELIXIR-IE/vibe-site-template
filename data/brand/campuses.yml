@@ -78,3 +78,13 @@
     - { name: Ashtown (Dublin), lat: 53.372, lon: -6.330 }
     - { name: Athenry (Galway), lat: 53.300, lon: -8.770 }
     - { name: Johnstown Castle (Wexford), lat: 52.295, lon: -6.505 }
+- name: Queen's University Belfast
+  short: QUB
+  campuses:
+    - { name: Belfast, lat: 54.584, lon: -5.935 }
+- name: Ulster University
+  short: UU
+  campuses:
+    - { name: Belfast, lat: 54.603, lon: -5.929 }
+    - { name: Coleraine, lat: 55.148, lon: -6.676 }
+    - { name: Magee (Derry~Londonderry), lat: 55.006, lon: -7.317 }
