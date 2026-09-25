@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="public/logo/vibe-logo-full.svg" alt="VIBE: Virtual Institute of Bioinformatics and Evolution" width="360">
+  <img src="public/logo/vibe-logo-full.svg" alt="VIBE: Virtual Institute of Bioinformatics & Evolution" width="360">
 </p>
 
 # VIBE site template
 
-A ready-to-use website for an edition of **VIBE, the Virtual Institute of Bioinformatics and Evolution** conference. Copy it, edit a few text files, push, and the site builds and publishes itself on GitHub Pages.
+A ready-to-use website for an edition of **VIBE, the Virtual Institute of Bioinformatics & Evolution** conference. Copy it, edit a few text files, push, and the site builds and publishes itself on GitHub Pages.
 
 **Live demo:** https://elixir-ie.github.io/vibe-site-template/
 

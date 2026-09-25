@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Conference website template for the Virtual Institute of Bioinformatics and Evolution (VIBE), built with Astro and deployed to GitHub Pages.",
+  "description": "Conference website template for the Virtual Institute of Bioinformatics & Evolution (VIBE), built with Astro and deployed to GitHub Pages.",
   "license": "CC-BY-4.0",
   "engines": {
     "node": ">=22.12.0"

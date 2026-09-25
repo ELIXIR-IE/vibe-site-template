@@ -1,6 +1,6 @@
 // Text helpers shared by the site and the logo build.
 
-/** Split a name into two balanced lines: "Virtual Institute of" / "Bioinformatics and Evolution". */
+/** Split a name into two balanced lines: "Virtual Institute of" / "Bioinformatics & Evolution". */
 export function twoLines(name) {
   const words = String(name).trim().split(/\s+/);
   if (words.length < 2) return [String(name), ""];
