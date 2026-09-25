@@ -1,19 +1,13 @@
 ---
 import Page from "../layouts/Page.astro";
 import DateList from "../components/DateList.astro";
-import { timeline, pageLabel, site } from "../lib/data";
+import { timeline, pageLabel } from "../lib/data";
 ---
 
-<Page
-  title={pageLabel("key-dates")}
-  eyebrow={site.event.title}
-  intro={`Deadlines close at 23:59 in the conference time zone (${site.event.timezone_label}) unless stated otherwise.`}
->
-  <div class="key-dates">
-    <DateList items={timeline} />
-  </div>
+<Page title={pageLabel("key-dates")}>
+  <div class="key-dates"><DateList items={timeline} /></div>
 </Page>
 
 <style>
-  .key-dates { max-width: 720px; margin-top: var(--space-5); }
+  .key-dates { max-width: 640px; }
 </style>

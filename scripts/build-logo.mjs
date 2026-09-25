@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 // Builds every logo file from data/brand/campuses.yml and data/site.yml:
 //
-//   public/logo/vibe-mark.svg            the mark alone (follows light/dark)
+//   public/logo/vibe-mark.svg            the mark alone
 //   public/logo/vibe-logo-full.svg       mark + name + two-line subtitle
 //   public/logo/vibe-logo.svg            mark + name
-//   public/logo/*-dark.svg               the same, for dark backgrounds
 //   public/logo/*.png                    PNG copies for slides and documents
 //   public/logo/favicon-32.png, apple-touch-icon.png, og-image.png
 //   src/generated/brand.json             wells and campuses for the site
@@ -19,7 +18,7 @@ import { load, CORE_SCHEMA } from "js-yaml";
 import opentype from "opentype.js";
 import sharp from "sharp";
 import { islandPath, wells, WELL_RADIUS } from "./brand/ireland.mjs";
-import { formatRange } from "../src/lib/dates.mjs";
+import { formatWhen } from "../src/lib/dates.mjs";
 import { twoLines } from "../src/lib/text.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -34,7 +33,6 @@ const institutions = yaml("brand/campuses.yml") ?? [];
 
 // Brand colours. Keep in step with src/styles/tokens.css.
 const LIGHT = { well: "#0E6B6B", bed: "#D5ECE9", hit: "#E8604C", name: "#0E6B6B", sub: "#5B6770", bg: "#FFFFFF", text: "#1F2A30" };
-const DARK = { well: "#5CC8C0", bed: "#15383A", hit: "#F07A64", name: "#E4EEEE", sub: "#9AAAB0", bg: "#0C1719", text: "#E4EEEE" };
 
 // ---- geometry -------------------------------------------------------------
 const campuses = [];
@@ -68,8 +66,7 @@ function adaptiveMark() {
       ? `<circle class="h" cx="${w.x}" cy="${w.y}" r="${hitR}"/>`
       : `<circle class="w" cx="${w.x}" cy="${w.y}" r="${WELL_RADIUS}" fill-opacity="${w.level}"/>`;
   }
-  const css = `.b{fill:${LIGHT.bed}}.w{fill:${LIGHT.well}}.h{fill:${LIGHT.hit}}` +
-    `@media (prefers-color-scheme:dark){.b{fill:${DARK.bed}}.w{fill:${DARK.well}}.h{fill:${DARK.hit}}}`;
+  const css = `.b{fill:${LIGHT.bed}}.w{fill:${LIGHT.well}}.h{fill:${LIGHT.hit}}`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><title>${esc(site.event.short_name)} mark</title><style>${css}</style>${s}</svg>\n`;
 }
 
@@ -154,8 +151,8 @@ function ogImage() {
   const title = site.event.title;
   const tSize = fit(DISPLAY, title, 104, colW);
   const nSize = fit(BODY_SEMI, site.event.full_name, 34, colW);
-  const when = `${formatRange(site.event.start_date, site.event.end_date)}`;
-  const how = site.event.format_label ?? "";
+  const when = formatWhen(site.event.start_date, site.event.end_date);
+  const how = [site.event.venue, site.event.city].filter(Boolean).join(", ");
   const org = site.host?.name ? `Hosted by ${site.host.name}` : "";
   const parts = [
     `<path d="${text(DISPLAY, title, colX, 260, tSize).d}" fill="${p.name}"/>`,
@@ -166,7 +163,7 @@ function ogImage() {
     org && `<path d="${text(BODY_MED, org, colX, 572, fit(BODY_MED, org, 24, colW)).d}" fill="${p.sub}"/>`,
   ].join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">` +
-    `<rect width="1200" height="630" fill="${p.bg}"/><rect width="500" height="630" fill="#E6F3F2"/>` +
+    `<rect width="1200" height="630" fill="${p.bg}"/>` +
     `<g transform="translate(40 55) scale(8.125)">${markBody(p)}</g>${parts}</svg>`;
 }
 
@@ -174,9 +171,7 @@ function ogImage() {
 const files = {
   "vibe-mark.svg": adaptiveMark(),
   "vibe-logo-full.svg": lockup("full", LIGHT),
-  "vibe-logo-full-dark.svg": lockup("full", DARK),
   "vibe-logo.svg": lockup("short", LIGHT),
-  "vibe-logo-dark.svg": lockup("short", DARK),
 };
 for (const [name, svg] of Object.entries(files)) writeFileSync(join(OUT, name), svg);
 
@@ -188,7 +183,6 @@ const square = (size, pad, bg) =>
 
 await Promise.all([
   png(files["vibe-logo-full.svg"], 144).png().toFile(join(OUT, "vibe-logo-full.png")),
-  png(files["vibe-logo-full-dark.svg"], 144).png().toFile(join(OUT, "vibe-logo-full-dark.png")),
   png(files["vibe-logo.svg"], 144).png().toFile(join(OUT, "vibe-logo.png")),
   png(square(512, 0), 72).png().toFile(join(OUT, "vibe-mark.png")),
   png(square(128, 0), 72).resize(32, 32).png().toFile(join(OUT, "favicon-32.png")),
@@ -211,4 +205,4 @@ writeFileSync(join(GEN, "brand.json"), JSON.stringify({
 }, null, 2) + "\n");
 
 const lit = cells.filter((w) => w.campuses.length).length;
-console.log(`build-logo: ${institutions.length} institutions, ${campuses.length} campuses → ${lit} coral wells of ${cells.length}; wrote ${Object.keys(files).length} SVGs and 7 PNGs`);
+console.log(`build-logo: ${institutions.length} institutions, ${campuses.length} campuses → ${lit} coral wells of ${cells.length}; wrote ${Object.keys(files).length} SVGs and 6 PNGs`);

@@ -1,9 +1,12 @@
 /* ==========================================================================
    Design tokens. Change the look of the whole site here.
    Colours for the logo files live in scripts/build-logo.mjs; keep them in step.
+   The site is light only: white background, no dark mode.
    ========================================================================== */
 
 :root {
+  color-scheme: light;
+
   /* Brand */
   --c-teal: #0e6b6b;
   --c-teal-ink: #0a4f4f;
@@ -31,7 +34,6 @@
   --c-link: var(--c-teal);
   --c-focus: var(--c-coral);
   --c-bed: #d5ece9;            /* the island behind the wells in the mark */
-  --c-hero-from: var(--c-teal-mist);
 
   /* Type */
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
@@ -60,26 +62,4 @@
   --shadow-lift: 0 6px 20px rgb(14 107 107 / 0.1);
   --max-width: 1160px;
   --prose-width: 68ch;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --c-teal: #5cc8c0;
-    --c-teal-ink: #8fddd6;
-    --c-teal-mist: #12302f;
-    --c-teal-line: #2b6a66;
-    --c-coral: #f07a64;
-    --c-coral-deep: #f07a64;
-    --c-coral-mist: #3a1f1a;
-    --c-bg: #0c1719;
-    --c-surface: #13242a;
-    --c-border: #23373d;
-    --c-text: #e4eeee;
-    --c-muted: #9aaab0;
-    --c-heading: #f1f7f7;
-    --c-on-cta: #1a0e0b;
-    --c-bed: #15383a;
-    --shadow-lift: 0 6px 20px rgb(0 0 0 / 0.35);
-  }
 }

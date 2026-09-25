@@ -14,7 +14,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../lib/data";
 import { url } from "../lib/url";
-import { formatRange } from "../lib/dates.mjs";
+import { formatWhen } from "../lib/dates.mjs";
 
 interface Props {
   title?: string;        // page title; the home page leaves it out
@@ -23,7 +23,8 @@ interface Props {
 const { title, description } = Astro.props;
 const { event } = site;
 const fullTitle = title ? `${title} | ${event.title}` : `${event.title}: ${event.full_name}`;
-const desc = description ?? `${event.full_name}, ${formatRange(event.start_date, event.end_date)}. ${event.tagline ?? ""}`.trim();
+const where = [event.venue, event.city].filter(Boolean).join(", ");
+const desc = description ?? [event.full_name, formatWhen(event.start_date, event.end_date), where].filter(Boolean).join(" · ");
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(url("logo/og-image.png"), Astro.site);
 ---

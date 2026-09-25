@@ -78,3 +78,13 @@ export function windowState(from, until, now = new Date()) {
   if (until && t > Date.parse(until)) return "after";
   return "during";
 }
+
+/**
+ * Dates for display, or "Dates TBC" when they are not set yet.
+ * @param {string | null | undefined} start
+ * @param {string | null | undefined} [end]
+ */
+export function formatWhen(start, end) {
+  if (!start) return "Dates TBC";
+  return end ? formatRange(start, end) : formatDate(start);
+}

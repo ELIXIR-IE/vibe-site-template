@@ -1,17 +1,6 @@
 ---
 import Prose from "./Prose.astro";
-import NetworkMap from "../components/NetworkMap.astro";
-import SectionHeading from "../components/SectionHeading.astro";
 import * as doc from "../prose/about.md";
 ---
 
-<Prose doc={doc}>
-  <section class="about-network" aria-labelledby="network-h">
-    <SectionHeading id="network-h" eyebrow="Partner institutions" title="A community across the island" />
-    <NetworkMap />
-  </section>
-</Prose>
-
-<style>
-  .about-network { padding-top: var(--space-8); max-width: none !important; }
-</style>
+<Prose doc={doc} />

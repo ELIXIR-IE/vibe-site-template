@@ -2,35 +2,27 @@
 import Page from "../layouts/Page.astro";
 import SpeakerCard from "../components/SpeakerCard.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { speakers, pageLabel, site } from "../lib/data";
+import { speakers, pageLabel } from "../lib/data";
 
 const keynotes = speakers.filter((s) => s.role === "keynote");
 const invited = speakers.filter((s) => s.role === "invited");
 ---
 
-<Page
-  title={pageLabel("speakers")}
-  eyebrow={site.event.title}
-  intro="Keynote and invited speakers. Contributed talks are listed in the programme."
->
+<Page title={pageLabel("speakers")}>
   {keynotes.length > 0 && (
-    <section class="section group">
+    <section class="group">
       <SectionHeading title="Keynote speakers" />
-      <div class="grid-auto" style="--min: 260px">
-        {keynotes.map((s) => <SpeakerCard speaker={s} />)}
-      </div>
+      <div class="grid-auto" style="--min: 240px">{keynotes.map((s) => <SpeakerCard speaker={s} />)}</div>
     </section>
   )}
   {invited.length > 0 && (
-    <section class="section group">
+    <section class="group">
       <SectionHeading title="Invited speakers" />
-      <div class="grid-auto" style="--min: 220px">
-        {invited.map((s) => <SpeakerCard speaker={s} />)}
-      </div>
+      <div class="grid-auto" style="--min: 240px">{invited.map((s) => <SpeakerCard speaker={s} />)}</div>
     </section>
   )}
 </Page>
 
 <style>
-  .group { padding-block: var(--space-6); }
+  .group + .group { padding-top: var(--space-7); }
 </style>

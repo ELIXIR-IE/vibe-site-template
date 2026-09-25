@@ -28,10 +28,11 @@ const { title, eyebrow, intro, description, narrow = false } = Astro.props;
 
 <style>
   .page-header {
-    background: linear-gradient(180deg, var(--c-hero-from), var(--c-bg));
-    padding-block: var(--space-7) var(--space-6);
+    background: var(--c-bg);
+    border-bottom: 1px solid var(--c-border);
+    padding-block: var(--space-7) var(--space-5);
   }
   .page-header-inner { display: grid; gap: var(--space-3); }
-  .page-body { padding-block: var(--space-5) 0; }
+  .page-body { padding-block: var(--space-6) 0; }
   .page-body--narrow > :global(*) { max-width: var(--prose-width); }
 </style>

@@ -1,25 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
-import Mark from "../components/Mark.astro";
 import { url } from "../lib/url";
 ---
 
 <Base title="Page not found">
   <section class="section">
-    <div class="container missing">
-      <Mark size={160} />
-      <div class="stack">
-        <p class="eyebrow">404 · No signal in this well</p>
-        <h1>Page not found</h1>
-        <p class="lead">The page may have moved, or this edition may not have it.</p>
-        <div class="btn-row">
-          <a class="btn btn--primary" href={url("")}>Go to the home page</a>
-        </div>
-      </div>
+    <div class="container stack">
+      <p class="eyebrow">404</p>
+      <h1>Page not found</h1>
+      <div class="btn-row"><a class="btn btn--primary" href={url("")}>Home</a></div>
     </div>
   </section>
 </Base>
-
-<style>
-  .missing { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-7); min-height: 40vh; }
-</style>

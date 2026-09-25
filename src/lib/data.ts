@@ -14,22 +14,21 @@ export interface PageEntry { slug: string; label: string; nav?: "header" | "foot
 export interface Fee { category: string; fee: string }
 export interface Site {
   event: {
-    short_name: string; full_name: string; edition?: string; title: string; tagline?: string;
-    start_date: string; end_date: string; start_time?: string; end_time?: string;
-    utc_offset: string; timezone_label?: string; format?: string; format_label?: string;
-    location?: string; contact_email?: string;
+    short_name: string; full_name: string; edition?: string; title: string;
+    start_date: string | null; end_date: string | null; start_time?: string; end_time?: string;
+    utc_offset?: string; timezone_label?: string; venue?: string; city?: string; contact_email?: string;
   };
   host?: { name: string; url?: string };
   demo_notice?: boolean;
   pages: PageEntry[];
-  registration?: { opens?: string; closes?: string; url?: string; button_label?: string; fees?: Fee[]; includes?: string[] };
+  registration?: { opens?: string | null; closes?: string | null; url?: string; button_label?: string; fees?: Fee[] };
   abstracts?: {
-    opens?: string; deadline?: string; notification?: string; url?: string; button_label?: string;
-    word_limit?: number; topics?: string[]; formats?: { name: string; detail?: string }[];
+    opens?: string | null; deadline?: string | null; notification?: string | null; url?: string; button_label?: string;
+    topics?: string[]; formats?: { name: string; detail?: string }[];
   };
   social?: { label: string; url: string }[];
   derived: {
-    eventStart: string; eventEnd: string;
+    eventStart: string | null; eventEnd: string | null;
     registrationOpens: string | null; registrationCloses: string | null;
     abstractsOpen: string | null; abstractsClose: string | null;
   };
@@ -39,15 +38,15 @@ export interface Speaker {
   talk?: string; bio?: string; photo?: string; links?: Record<string, string>;
 }
 export interface Session {
-  start: string; end: string; startAt: string; endAt: string;
+  start: string; end: string; startAt: string | null; endAt: string | null;
   type: "keynote" | "talks" | "panel" | "workshop" | "posters" | "break" | "social" | "opening";
   title: string; chair?: string; note?: string;
   speaker?: string; speakerInfo?: { id: string; name: string; affiliation: string } | null;
   items: { title: string; by: string | null; speakerId?: string }[];
 }
-export interface Day { date: string; title?: string; sessions: Session[] }
+export interface Day { date: string | null; title?: string; sessions: Session[] }
 export interface KeyDate {
-  date: string; end?: string; label: string; note?: string; at: string;
+  date: string | null; end?: string | null; label: string; note?: string | null; at: string | null;
   kind: "milestone" | "deadline" | "event"; group: "abstracts" | "registration" | "event" | "other";
 }
 export interface Member { name: string; affiliation: string; role?: string; orcid?: string }

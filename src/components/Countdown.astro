@@ -3,8 +3,10 @@
 // Switches to "Happening now" during the event and hides afterwards.
 import { site } from "../lib/data";
 
-const { eventStart, eventEnd } = site.derived;
-const ms = Math.max(0, Date.parse(eventStart) - Date.now());
+// Rendered only when event.start_date is set (see Hero.astro).
+const eventStart = site.derived.eventStart ?? "";
+const eventEnd = site.derived.eventEnd ?? eventStart;
+const ms = Math.max(0, Date.parse(eventStart) - Date.now()) || 0;
 const initial = {
   days: Math.floor(ms / 864e5),
   hours: Math.floor(ms / 36e5) % 24,

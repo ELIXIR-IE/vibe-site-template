@@ -1,13 +1,9 @@
-# Sponsors and supporters, grouped by tier. Leave the list empty ([]) to hide
-# the sponsor strip and page.
-#
-#   logo: optional, a file in public/img/sponsors/ (SVG or PNG on transparent)
-#         Without a logo the name is shown as text.
+# Host and sponsors, by tier. Use [] to hide the sponsor section.
+#   logo: optional, file in public/img/sponsors/
 - tier: Hosted by
   sponsors:
     - { name: Host Institution, url: https://example.org }
-- tier: Supported by
+- tier: Sponsors
   sponsors:
-    - { name: Sponsor name, url: https://example.org }
     - { name: Sponsor name, url: https://example.org }
     - { name: Sponsor name, url: https://example.org }

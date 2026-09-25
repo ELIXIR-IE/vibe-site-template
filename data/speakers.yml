@@ -1,48 +1,27 @@
 # Keynote and invited speakers.
 #
-#   id:          short unique name, used to link talks in programme.yml
-#   role:        keynote | invited
-#   photo:       optional, a file in public/img/speakers/ (square, at least 400 px)
-#                Without a photo the site shows the person's initials.
-#   links:       optional orcid, website, bluesky, linkedin
-#
-# PLACEHOLDER PEOPLE: these names and affiliations are invented for the demo.
+#   id:     short unique name, used to link talks in programme.yml
+#   role:   keynote | invited
+#   photo:  optional, file in public/img/speakers/ (square, 400 px or more)
+#   bio:    optional, one or two sentences
+#   links:  optional, e.g. { orcid: 0000-0000-0000-0000, website: https://..., linkedin: https://... }
 - id: keynote-1
-  name: Dr Clodagh Ferris
-  affiliation: Example University, Galway
+  name: Speaker Name
+  affiliation: Affiliation
   role: keynote
-  talk: Reading the regulatory genome, one cell at a time
-  bio: Clodagh leads a group building statistical methods for single-cell multi-omics, with a focus on how regulatory variation shapes cell identity.
-  links: { website: https://example.org }
+  talk: Talk title
 - id: keynote-2
-  name: Prof. Tunde Adeyemi
-  affiliation: Example Institute of Technology, Cork
+  name: Speaker Name
+  affiliation: Affiliation
   role: keynote
-  talk: Foundation models for protein design, and what they still get wrong
-  bio: Tunde works at the boundary of structural biology and machine learning, and co-maintains an open benchmark for protein language models.
-  links: { website: https://example.org }
-- id: keynote-3
-  name: Dr Ingrid Solberg
-  affiliation: Example Research Centre, Oslo
-  role: keynote
-  talk: Metagenomes at national scale, from sewage to surveillance
-  bio: Ingrid coordinates a national wastewater sequencing programme and the open pipelines behind it.
-  links: { website: https://example.org }
+  talk: Talk title
 - id: invited-1
-  name: Dr Rory Hanlon
-  affiliation: Example University, Dublin
+  name: Speaker Name
+  affiliation: Affiliation
   role: invited
-  talk: Reproducible workflows that survive a PhD
-  bio: Rory runs research software engineering training and maintains several community workflows.
+  talk: Talk title
 - id: invited-2
-  name: Dr Mei Lin Tan
-  affiliation: Example Hospital Research Institute, Limerick
+  name: Speaker Name
+  affiliation: Affiliation
   role: invited
-  talk: Linking clinical and genomic data without moving it
-  bio: Mei Lin builds federated analysis tools for hospital data under strict governance.
-- id: invited-3
-  name: Dr Siobhán Walsh
-  affiliation: Example Agricultural Research Centre, Carlow
-  role: invited
-  talk: Genomic selection for climate-resilient grassland
-  bio: Siobhán applies quantitative genetics and machine learning to plant and animal breeding.
+  talk: Talk title

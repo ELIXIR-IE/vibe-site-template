@@ -1,98 +1,23 @@
-# The programme, one block per day. Times are in the event time zone
-# (see utc_offset in site.yml). Visitors can switch to their own time zone.
+# Programme, one block per day. Copy the block for more days.
 #
-# Session fields:
-#   start, end:  "HH:MM" in quotes
-#   type:        keynote | talks | panel | workshop | posters | break | social | opening
-#   title:       session title
-#   speaker:     optional, a speaker id from speakers.yml (for keynotes)
-#   chair:       optional, free text
-#   note:        optional, one line of detail
-#   items:       optional list of talks: { title, by } where "by" is free text
-#                or a speaker id from speakers.yml
-#
-# PLACEHOLDER PROGRAMME: sessions and presenters are invented for the demo.
-
-- date: 2027-04-20
-  title: Data at every scale
+#   date:     YYYY-MM-DD (leave empty until known)
+#   sessions: start/end "HH:MM", type, title
+#   type:     keynote | talks | panel | workshop | posters | break | social | opening
+#   speaker:  optional speaker id from speakers.yml (keynotes)
+#   chair:    optional
+#   items:    optional talks: { title, by } ("by" is text or a speaker id)
+- date:
   sessions:
-    - { start: "09:30", end: "09:45", type: "opening", title: "Welcome and opening remarks", note: "From the organising committee" }
-    - { start: "09:45", end: "10:30", type: "keynote", title: "Reading the regulatory genome, one cell at a time", speaker: "keynote-1" }
-    - start: "10:30"
-      end: "11:30"
+    - { start: "09:00", end: "09:15", type: opening, title: Opening }
+    - { start: "09:15", end: "10:00", type: keynote, title: Talk title, speaker: keynote-1 }
+    - start: "10:00"
+      end: "11:00"
       type: talks
-      title: "Session 1: Genomics and single-cell analysis"
-      chair: Dr Priya Nair
+      title: Session 1
+      chair: Chair Name
       items:
-        - { title: "Allele-specific expression across 40 tissues", by: "A. Presenter, Example University" }
-        - { title: "A lightweight caller for structural variants in long reads", by: "B. Presenter, Example University" }
-        - { title: "Batch effects in spatial transcriptomics, measured", by: "C. Presenter, Example Institute" }
-    - { start: "11:30", end: "11:50", type: "break", title: "Coffee break and poster hall" }
-    - start: "11:50"
-      end: "12:40"
-      type: talks
-      title: "Session 2: Microbiome and One Health"
-      chair: Dr Sarah Whelan
-      items:
-        - { title: "Tracking resistance genes through a river catchment", by: "D. Presenter, Example University" }
-        - { title: "Strain-level profiling at low sequencing depth", by: "E. Presenter, Example Research Centre" }
-    - { start: "12:40", end: "13:40", type: "break", title: "Lunch" }
-    - { start: "13:40", end: "15:10", type: "workshop", title: "Reproducible pipelines from laptop to cluster", note: "Hands-on, 40 places, sign-up required" }
-    - { start: "15:10", end: "15:30", type: "break", title: "Break" }
-    - { start: "15:30", end: "16:15", type: "keynote", title: "Metagenomes at national scale, from sewage to surveillance", speaker: "keynote-3" }
-    - { start: "16:15", end: "17:00", type: "posters", title: "Live poster session A", note: "Posters with odd numbers" }
-
-- date: 2027-04-21
-  title: Models and methods
-  sessions:
-    - { start: "09:30", end: "10:15", type: "keynote", title: "Foundation models for protein design, and what they still get wrong", speaker: "keynote-2" }
-    - start: "10:15"
-      end: "11:15"
-      type: talks
-      title: "Session 3: Machine learning in the life sciences"
-      chair: Dr Liam O'Connell
-      items:
-        - { title: "When does a protein language model generalise?", by: "F. Presenter, Example University" }
-        - { title: "Calibrated uncertainty for variant effect prediction", by: "G. Presenter, Example Institute" }
-        - { title: "Reporting standards for ML papers in biology", by: "invited-1" }
-    - { start: "11:15", end: "11:35", type: "break", title: "Coffee break" }
-    - start: "11:35"
-      end: "12:35"
-      type: panel
-      title: Open data, open models, who pays?
-      chair: Prof. Declan Murphy
-      items:
-        - { title: "Panellist", by: "invited-2" }
-        - { title: "Panellist", by: "invited-3" }
-        - { title: "Panellist", by: "H. Panellist, Example Funding Agency" }
-    - { start: "12:35", end: "13:35", type: "break", title: "Lunch" }
-    - start: "13:35"
-      end: "14:35"
-      type: talks
-      title: "Lightning talks"
-      chair: Ciara Lynch
-      note: Eight five-minute talks from early-career researchers
-    - { start: "14:35", end: "15:20", type: "posters", title: "Live poster session B", note: "Posters with even numbers" }
-    - { start: "15:20", end: "16:00", type: "social", title: "Virtual networking", note: "Topic rooms, drop in and out" }
-
-- date: 2027-04-22
-  title: From data to decisions
-  sessions:
-    - start: "09:30"
-      end: "10:30"
-      type: talks
-      title: "Session 4: Clinical and translational bioinformatics"
-      chair: Dr Fiona Gallagher
-      items:
-        - { title: "Linking clinical and genomic data without moving it", by: "invited-2" }
-        - { title: "Pharmacogenomic reporting in routine care", by: "I. Presenter, Example Hospital" }
-    - { start: "10:30", end: "10:50", type: "break", title: "Coffee break" }
-    - start: "10:50"
-      end: "11:50"
-      type: talks
-      title: "Session 5: FAIR data, software and training"
-      chair: Dr Tomasz Nowak
-      items:
-        - { title: "Genomic selection for climate-resilient grassland", by: "invited-3" }
-        - { title: "Making a national training catalogue findable", by: "J. Presenter, Example University" }
-    - { start: "11:50", end: "12:30", type: "opening", title: "Poster prizes and closing remarks" }
+        - { title: Talk title, by: "Presenter Name, Affiliation" }
+        - { title: Talk title, by: "Presenter Name, Affiliation" }
+    - { start: "11:00", end: "11:30", type: break, title: Break }
+    - { start: "11:30", end: "12:30", type: posters, title: Poster session }
+    - { start: "12:30", end: "12:45", type: opening, title: Closing }

@@ -1,14 +1,4 @@
-# Extra key dates. The abstract, registration and conference dates in
-# site.yml are added to the timeline automatically, so only list the others.
-#
-#   date:  YYYY-MM-DD (or a full timestamp for an exact time)
-#   label: what happens
-#   note:  optional small print
-- date: 2027-03-10
-  label: Full programme published
-- date: 2027-03-24
-  label: Workshop sign-up opens
-  note: Places are limited and allocated in order of registration.
-- date: 2027-04-06
-  label: Poster PDFs due
-  note: Upload through the submission system.
+# Extra key dates. Abstract, registration and conference dates from
+# site.yml are added automatically. Leave date empty to show "TBC".
+- date:
+  label: Programme published

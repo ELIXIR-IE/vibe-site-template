@@ -1,31 +1,13 @@
-# Committees, shown in this order on the Committees page.
-#
-#   role:  optional, e.g. Chair, Co-chair
-#   orcid: optional, the 16-digit ORCID iD only (0000-0000-0000-0000)
-#
-# PLACEHOLDER PEOPLE: replace with the real committee.
+# Committees, in page order.
+#   role:  optional, e.g. Chair
+#   orcid: optional, e.g. 0000-0000-0000-0000
 - name: Organising committee
-  description: Runs the conference, from the call for abstracts to the last session.
   members:
-    - { name: Dr Aisling Moran, affiliation: "Example University, Dublin", role: Chair }
-    - { name: Dr Kieran Doyle, affiliation: "Example University, Cork", role: Co-chair }
-    - { name: Nadia Rahman, affiliation: "Example University, Galway" }
-    - { name: Dr Conor Fitzgerald, affiliation: "Example Institute of Technology, Limerick" }
-    - { name: Emma Kavanagh, affiliation: "Example Research Centre, Carlow" }
+    - { name: Member Name, affiliation: Affiliation, role: Chair }
+    - { name: Member Name, affiliation: Affiliation }
+    - { name: Member Name, affiliation: Affiliation }
 - name: Programme committee
-  description: Reviews abstracts and shapes the scientific programme.
   members:
-    - { name: Prof. Declan Murphy, affiliation: "Example University, Dublin", role: Chair }
-    - { name: Dr Priya Nair, affiliation: "Example University, Galway" }
-    - { name: Dr Liam O'Connell, affiliation: "Example University, Limerick" }
-    - { name: Dr Sarah Whelan, affiliation: "Example Institute of Technology, Sligo" }
-    - { name: Dr Tomasz Nowak, affiliation: "Example University, Cork" }
-    - { name: Dr Fiona Gallagher, affiliation: "Example University, Maynooth" }
-    - { name: Dr Ahmed Hassan, affiliation: "Example Research Centre, Dublin" }
-    - { name: Dr Orla Brennan, affiliation: "Example Institute of Technology, Waterford" }
-- name: Early-career committee
-  description: Plans the early-career sessions and the poster prizes.
-  members:
-    - { name: Ciara Lynch, affiliation: "Example University, Dublin", role: Chair }
-    - { name: Daniel Okoro, affiliation: "Example University, Galway" }
-    - { name: Hannah Byrne, affiliation: "Example University, Cork" }
+    - { name: Member Name, affiliation: Affiliation, role: Chair }
+    - { name: Member Name, affiliation: Affiliation }
+    - { name: Member Name, affiliation: Affiliation }

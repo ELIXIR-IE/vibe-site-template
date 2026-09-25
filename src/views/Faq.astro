@@ -1,30 +1,25 @@
 ---
 import Page from "../layouts/Page.astro";
-import Callout from "../components/Callout.astro";
 import { faq, site, pageLabel } from "../lib/data";
 import { inlineMarkdown } from "../lib/url";
 ---
 
-<Page title={pageLabel("faq")} eyebrow={site.event.title} intro="Quick answers about taking part.">
+<Page title={pageLabel("faq")}>
   <div class="faq">
-    {faq.map((f, i) => (
-      <details open={i === 0}>
+    {faq.map((f) => (
+      <details>
         <summary>{f.q}</summary>
         <p set:html={inlineMarkdown(f.a)} />
       </details>
     ))}
   </div>
   {site.event.contact_email && (
-    <div class="faq-contact">
-      <Callout tone="quiet" title="Still have a question?">
-        <p>Email the organisers at <a href={`mailto:${site.event.contact_email}`}>{site.event.contact_email}</a>.</p>
-      </Callout>
-    </div>
+    <p class="faq-contact">Contact: <a href={`mailto:${site.event.contact_email}`}>{site.event.contact_email}</a></p>
   )}
 </Page>
 
 <style>
-  .faq { max-width: 780px; margin-top: var(--space-5); border-top: 1px solid var(--c-border); }
+  .faq { max-width: 780px; border-top: 1px solid var(--c-border); }
   details { border-bottom: 1px solid var(--c-border); }
   summary {
     cursor: pointer;
@@ -51,5 +46,5 @@ import { inlineMarkdown } from "../lib/url";
   }
   details[open] summary::after { content: "–"; background: var(--c-accent-soft); color: var(--c-cta); }
   details p { padding-bottom: var(--space-4); max-width: 65ch; }
-  .faq-contact { max-width: 780px; margin-top: var(--space-7); }
+  .faq-contact { margin-top: var(--space-6); }
 </style>

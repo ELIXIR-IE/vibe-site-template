@@ -1,31 +1,35 @@
 ---
-// Key dates as a timeline. Past dates fade out, the next one is highlighted.
-// "Past" is worked out at build time and again in the browser (Base.astro).
+// Key dates as a list. Undated entries show "TBC". Once dates are set,
+// past dates fade and the next one is marked (checked again in the browser).
 import type { KeyDate } from "../lib/data";
 import { dayBadge, formatDate, formatRange } from "../lib/dates.mjs";
 
 interface Props { items: KeyDate[]; limit?: number; upcomingOnly?: boolean }
 const { items, limit, upcomingOnly = false } = Astro.props;
 const now = Date.now();
-let list = upcomingOnly ? items.filter((d) => Date.parse(d.at) >= now) : items;
+let list = upcomingOnly ? items.filter((d) => !d.at || Date.parse(d.at) >= now) : items;
 if (limit) list = list.slice(0, limit);
-const nextIndex = list.findIndex((d) => Date.parse(d.at) >= now);
+const nextIndex = list.findIndex((d) => d.at && Date.parse(d.at) >= now);
 ---
 
 <ol class="datelist">
   {list.map((d, i) => {
-    const b = dayBadge(d.date);
+    const b = d.date ? dayBadge(d.date) : null;
     return (
       <li
         class:list={["date", `date--${d.kind}`, { "is-next": i === nextIndex }]}
-        data-at={d.at}
-        data-past={Date.parse(d.at) < now ? "" : undefined}
+        data-at={d.at ?? undefined}
+        data-past={d.at && Date.parse(d.at) < now ? "" : undefined}
       >
-        <span class="date-badge" aria-hidden="true"><b>{b.day}</b><small>{b.month}</small></span>
+        <span class="date-badge" aria-hidden="true">
+          {b ? <><b>{b.day}</b><small>{b.month}</small></> : <small>TBC</small>}
+        </span>
         <span class="date-text">
           <span class="date-label">{d.label}</span>
           <span class="date-when">
-            <time datetime={d.date}>{d.end ? formatRange(d.date, d.end) : formatDate(d.date, { weekday: true })}</time>
+            {d.date
+              ? <time datetime={d.date}>{d.end ? formatRange(d.date, d.end) : formatDate(d.date, { weekday: true })}</time>
+              : "Date TBC"}
             {d.note && <> · {d.note}</>}
           </span>
         </span>
@@ -42,13 +46,13 @@ const nextIndex = list.findIndex((d) => Date.parse(d.at) >= now);
     gap: var(--space-4);
     align-items: center;
     padding: var(--space-2);
-    border-radius: var(--radius-md);
   }
   .date-badge {
     display: grid;
     justify-items: center;
+    align-content: center;
     gap: 0.3rem;
-    padding-block: 0.55rem;
+    min-height: 56px;
     border: 1px solid var(--c-border);
     border-radius: var(--radius-sm);
     background: var(--c-bg);
@@ -60,10 +64,8 @@ const nextIndex = list.findIndex((d) => Date.parse(d.at) >= now);
   .date-when { font-size: var(--fs-small); color: var(--c-muted); }
   .date--deadline .date-badge { border-color: var(--c-accent); }
   .date--deadline .date-badge b { color: var(--c-cta); }
-  .date--event { background: var(--c-primary-soft); }
-  .date--event .date-badge { background: var(--c-primary); border-color: var(--c-primary); }
-  .date--event .date-badge b, .date--event .date-badge small { color: var(--c-bg); }
-  .date.is-next:not(.date--event) { background: var(--c-surface); box-shadow: inset 3px 0 0 var(--c-accent); }
+  .date--event .date-badge { border-color: var(--c-primary); border-width: 2px; }
+  .date.is-next:not(.date--event) { box-shadow: inset 3px 0 0 var(--c-accent); }
   .date[data-past] { opacity: 0.55; }
   .date[data-past] .date-label { text-decoration: line-through; text-decoration-color: var(--c-muted); }
 </style>

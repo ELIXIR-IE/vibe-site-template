@@ -15,7 +15,7 @@ export function twoLines(name) {
   return best;
 }
 
-/** Initials for an avatar: "Dr Clodagh Ferris" → "CF". */
+/** Initials for an avatar: "Speaker Name" → "SN". */
 export function initials(name) {
   const words = String(name).replace(/^(Dr|Prof\.?|Professor|Mr|Ms|Mrs|Mx)\s+/i, "").split(/\s+/).filter(Boolean);
   return ((words[0]?.[0] ?? "") + (words.length > 1 ? words[words.length - 1][0] : "")).toUpperCase();

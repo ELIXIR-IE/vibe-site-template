@@ -47,7 +47,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 .section { padding-block: var(--space-8); }
-.section--tint { background: var(--c-surface); border-block: 1px solid var(--c-border); }
+.section--rule { border-top: 1px solid var(--c-border); }
 
 .stack { display: grid; gap: var(--space-4); align-content: start; }
 .stack-lg { display: grid; gap: var(--space-6); align-content: start; }
@@ -151,8 +151,7 @@ a:hover { text-decoration-thickness: 2px; }
   margin-inline: 0;
   padding: var(--space-3) var(--space-5);
   border-left: 3px solid var(--c-accent);
-  background: var(--c-surface);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-radius: 0;
 }
 .prose table { border-collapse: collapse; width: 100%; font-size: var(--fs-small); }
 .prose th, .prose td { text-align: left; padding: 0.55em 0.7em; border-bottom: 1px solid var(--c-border); }

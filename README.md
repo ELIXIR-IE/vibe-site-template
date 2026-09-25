@@ -8,7 +8,7 @@ A ready-to-use website for an edition of **VIBE, the Virtual Institute of Bioinf
 
 **Live demo:** https://elixir-ie.github.io/vibe-site-template/
 
-It includes a home page with countdown, programme, speakers, call for abstracts, registration, key dates, committees, sponsors, FAQ, code of conduct and an "attending online" guide. It works on phones, follows the visitor's light or dark setting, and needs no server or database.
+Pages: home, programme, speakers, call for abstracts, registration, key dates, committees, venue, sponsors, FAQ, about and code of conduct. White background, works on phones, no server or database. All content is placeholder until you replace it.
 
 ---
 
@@ -18,7 +18,7 @@ It includes a home page with countdown, programme, speakers, call for abstracts,
 2. In the new repository, open **Settings → Pages** and set **Source** to **GitHub Actions**.
 3. Edit the files in [`data/`](data/) for your edition (see the table below). You can do this in the GitHub web editor.
 4. Commit to `main`. The site builds and goes live in about two minutes at `https://<your-org>.github.io/<repo-name>/`. Follow progress under the **Actions** tab.
-5. When the real content is in, set `demo_notice: false` in `data/site.yml` to remove the "template preview" banner.
+5. When the real content is in, set `demo_notice: false` in `data/site.yml` to remove the template banner.
 
 If a data file has a mistake, the build stops and the Actions log says which file and entry to fix. The live site stays as it was until the next successful build.
 
@@ -34,13 +34,13 @@ If a data file has a mistake, the build stops and the Actions log says which fil
 | [`data/sponsors.yml`](data/sponsors.yml) | Host and sponsors, by tier |
 | [`data/faq.yml`](data/faq.yml) | Questions and answers |
 | [`data/brand/campuses.yml`](data/brand/campuses.yml) | Institutions shown as coral wells in the logo |
-| [`src/prose/*.md`](src/prose/) | Longer text pages: About, Attending online, Code of conduct |
+| [`src/prose/*.md`](src/prose/) | Text pages: About, Venue, Code of conduct |
 | `public/img/speakers/` | Speaker photos (square, at least 400 px), named in `speakers.yml` |
 | `public/img/sponsors/` | Sponsor logos, named in `sponsors.yml` |
 
 VIBE is hosted by a different institution each year. Set the host under `host:` in `data/site.yml`. It appears in the hero, the footer and the social sharing image.
 
-Every file starts with comments explaining its fields. The placeholder people, sessions and links are invented; replace them all.
+Every file starts with comments explaining its fields. Dates are left empty in the template and show as "TBC" until you fill them in.
 
 ## Preview on your computer
 
@@ -66,11 +66,11 @@ In Markdown pages, link to other pages with relative links such as `../programme
 
 Set dates once in `data/site.yml`, and the site uses them everywhere:
 
-- Registration and abstract buttons appear, change or disappear on the right days ("opens 2 November", "Register now", "Registration has closed").
+- Registration and abstract messages change on the right days (opens, open, closed).
 - The home page counts down to the first session and shows "Happening now" during the event.
 - Past key dates fade out and the next one is highlighted.
 
-This is worked out when the site is built and checked again in each visitor's browser, and the site also rebuilds itself every morning. Use `utc_offset` for the time zone the conference runs in (`"+01:00"` for Irish summer time, `"+00:00"` in winter).
+While dates are empty the site shows "TBC" and hides the countdown. Date-based content is worked out when the site is built and checked again in each visitor's browser, and the site rebuilds itself every morning. Use `utc_offset` for the time zone the conference runs in (`"+01:00"` for Irish summer time, `"+00:00"` in winter).
 
 ## Logo
 
@@ -80,7 +80,6 @@ The mark is the island of Ireland drawn as a sequencing flow cell. Each coral we
 |---|---|
 | `vibe-logo-full.svg` / `.png` | Mark, name and subtitle: headers, posters, documents |
 | `vibe-logo.svg` / `.png` | Mark and name only: slides, small spaces |
-| `*-dark.svg` / `.png` | The same for dark backgrounds |
 | `vibe-mark.svg` / `.png` | The mark alone: favicons, avatars |
 | `og-image.png` | Social sharing card, built from the name, dates and host |
 
@@ -88,7 +87,7 @@ The text in the SVG files is converted to outlines, so they look the same on any
 
 ## Colours and fonts
 
-All colours, type sizes and spacing are CSS variables in [`src/styles/tokens.css`](src/styles/tokens.css). The palette is deep teal (`#0E6B6B`) and coral (`#E8604C`, with `#C4432E` for buttons) on white, with a matching dark theme. If you change the brand colours, change them in `scripts/build-logo.mjs` too.
+All colours, type sizes and spacing are CSS variables in [`src/styles/tokens.css`](src/styles/tokens.css). The palette is deep teal (`#0E6B6B`) and coral (`#E8604C`, with `#C4432E` for buttons) on a plain white background (no dark mode). If you change the brand colours, change them in `scripts/build-logo.mjs` too.
 
 Fonts are Bricolage Grotesque (headings), Figtree (text) and IBM Plex Mono (times and labels), bundled with the site through Fontsource. No request goes to Google Fonts.
 

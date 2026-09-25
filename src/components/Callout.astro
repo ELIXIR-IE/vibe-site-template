@@ -21,11 +21,12 @@ const { tone = "primary", title, ...rest } = Astro.props;
     gap: var(--space-4) var(--space-6);
     padding: var(--space-5) var(--space-6);
     border-radius: var(--radius-md);
-    border: 1px solid var(--c-primary-line);
-    background: var(--c-primary-soft);
+    border: 1px solid var(--c-border);
+    border-left: 4px solid var(--c-primary);
+    background: var(--c-bg);
   }
-  .callout--accent { border-color: var(--c-accent); background: var(--c-accent-soft); }
-  .callout--quiet { border-color: var(--c-border); background: var(--c-surface); }
+  .callout--accent { border-left-color: var(--c-accent); }
+  .callout--quiet { border-left-color: var(--c-border); }
   .callout-text { display: grid; gap: var(--space-1); max-width: 60ch; }
   .callout-title { font: 700 1.2rem / 1.25 var(--f-display); color: var(--c-heading); }
   .callout-actions:empty { display: none; }

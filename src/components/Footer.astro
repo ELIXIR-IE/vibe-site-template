@@ -2,11 +2,12 @@
 import Logo from "./Logo.astro";
 import { site } from "../lib/data";
 import { url } from "../lib/url";
-import { formatRange } from "../lib/dates.mjs";
+import { formatWhen } from "../lib/dates.mjs";
 
 const { event, host, social = [] } = site;
 const headerPages = site.pages.filter((p) => p.nav === "header");
 const footerPages = site.pages.filter((p) => p.nav !== "header");
+const where = [event.venue, event.city].filter(Boolean).join(", ");
 ---
 
 <footer class="site-footer">
@@ -14,7 +15,7 @@ const footerPages = site.pages.filter((p) => p.nav !== "header");
     <div class="stack footer-brand">
       <Logo variant="short" size={44} />
       <p class="muted">{event.full_name}</p>
-      <p class="footer-when">{formatRange(event.start_date, event.end_date)}<br />{event.format_label}</p>
+      <p class="footer-when">{formatWhen(event.start_date, event.end_date)}{where && <><br />{where}</>}</p>
     </div>
 
     <nav class="stack" aria-label="Conference">
@@ -22,8 +23,8 @@ const footerPages = site.pages.filter((p) => p.nav !== "header");
       <ul>{headerPages.map((p) => <li><a href={url(p.slug)}>{p.label}</a></li>)}</ul>
     </nav>
 
-    <nav class="stack" aria-label="Taking part">
-      <h2 class="footer-heading">Taking part</h2>
+    <nav class="stack" aria-label="Information">
+      <h2 class="footer-heading">Information</h2>
       <ul>{footerPages.map((p) => <li><a href={url(p.slug)}>{p.label}</a></li>)}</ul>
     </nav>
 
@@ -50,7 +51,7 @@ const footerPages = site.pages.filter((p) => p.nav !== "header");
   .site-footer {
     margin-top: var(--space-8);
     border-top: 1px solid var(--c-border);
-    background: var(--c-surface);
+    background: var(--c-bg);
     font-size: var(--fs-small);
   }
   .footer-grid {

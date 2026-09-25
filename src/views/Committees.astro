@@ -2,23 +2,12 @@
 import Page from "../layouts/Page.astro";
 import PersonGrid from "../components/PersonGrid.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { committees, pageLabel, site } from "../lib/data";
-
-const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+import { committees, pageLabel } from "../lib/data";
 ---
 
-<Page
-  title={pageLabel("committees")}
-  eyebrow={site.event.title}
-  intro="The people who organise the conference and review the science."
->
-  {committees.length > 1 && (
-    <nav class="jump" aria-label="Committees on this page">
-      {committees.map((c) => <a href={`#${slug(c.name)}`}>{c.name}</a>)}
-    </nav>
-  )}
+<Page title={pageLabel("committees")}>
   {committees.map((c) => (
-    <section class="committee" id={slug(c.name)}>
+    <section class="committee">
       <SectionHeading title={c.name} intro={c.description} />
       <PersonGrid members={c.members} />
     </section>
@@ -26,6 +15,5 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(
 </Page>
 
 <style>
-  .jump { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin-top: var(--space-2); font-weight: 600; }
-  .committee { padding-top: var(--space-7); }
+  .committee + .committee { padding-top: var(--space-7); }
 </style>

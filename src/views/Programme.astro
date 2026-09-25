@@ -7,33 +7,20 @@ import { formatDate } from "../lib/dates.mjs";
 const { event } = site;
 ---
 
-<Page
-  title={pageLabel("programme")}
-  eyebrow={`${event.title} · ${programme.length} days`}
-  intro={`All times are ${event.timezone_label ?? `UTC${event.utc_offset}`}. Switch to your own time zone below.`}
->
-  <div class="prog-tools">
+<Page title={pageLabel("programme")} intro={`Times are ${event.timezone_label ?? "local time"}.`}>
+  {programme.length > 1 && (
     <nav class="day-nav" aria-label="Days">
       {programme.map((d, i) => (
-        <a href={`#day-${i + 1}`}>
-          <span class="day-num">Day {i + 1}</span>
-          <span>{formatDate(d.date, { weekday: true, year: false, short: true })}</span>
-        </a>
+        <a href={`#day-${i + 1}`}>Day {i + 1}{d.date && `: ${formatDate(d.date, { weekday: true, year: false, short: true })}`}</a>
       ))}
     </nav>
-    <button class="btn btn--ghost btn--small" type="button" id="tz-toggle" aria-pressed="false" hidden>
-      Show my time zone
-    </button>
-  </div>
-  <p class="tz-note muted" id="tz-note" hidden></p>
+  )}
 
   {programme.map((d, i) => (
     <section class="day" id={`day-${i + 1}`} aria-labelledby={`day-${i + 1}-h`}>
-      <header class="day-head">
-        <p class="eyebrow">Day {i + 1}</p>
-        <h2 id={`day-${i + 1}-h`}>{formatDate(d.date, { weekday: true })}</h2>
-        {d.title && <p class="muted">{d.title}</p>}
-      </header>
+      <h2 id={`day-${i + 1}-h`}>
+        Day {i + 1}{d.date ? `: ${formatDate(d.date, { weekday: true })}` : ""}
+      </h2>
       <ol class="sessions">
         {d.sessions.map((s) => <SessionRow session={s} />)}
       </ol>
@@ -41,50 +28,9 @@ const { event } = site;
   ))}
 </Page>
 
-<script>
-  // Toggle programme times between the event time zone and the visitor's own.
-  const btn = document.getElementById("tz-toggle") as HTMLButtonElement | null;
-  const note = document.getElementById("tz-note");
-  const times = [...document.querySelectorAll<HTMLTimeElement>("time[data-local-time]")];
-  const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const fmt = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
-  const first = times[0] ? new Date(times[0].dateTime) : null;
-  // Only offer the switch when the visitor's clock differs from the event's.
-  const eventText = times[0]?.textContent ?? "";
-  if (btn && first && fmt.format(first) !== eventText) {
-    btn.hidden = false;
-    btn.textContent = `Show times in ${zone.replace(/_/g, " ")}`;
-    times.forEach((t) => (t.dataset.eventTime = t.textContent ?? ""));
-    btn.addEventListener("click", () => {
-      const local = btn.getAttribute("aria-pressed") !== "true";
-      btn.setAttribute("aria-pressed", String(local));
-      times.forEach((t) => (t.textContent = local ? fmt.format(new Date(t.dateTime)) : t.dataset.eventTime!));
-      if (note) {
-        note.hidden = !local;
-        note.textContent = `Showing times in your time zone (${zone.replace(/_/g, " ")}). Session days are unchanged.`;
-      }
-      btn.textContent = local ? "Show conference time" : `Show times in ${zone.replace(/_/g, " ")}`;
-    });
-  }
-</script>
-
 <style>
-  .prog-tools {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    position: sticky;
-    top: 76px;
-    z-index: 5;
-    background: var(--c-bg);
-    padding-block: var(--space-3);
-    border-bottom: 1px solid var(--c-border);
-  }
   .day-nav { display: flex; flex-wrap: wrap; gap: var(--space-2); }
   .day-nav a {
-    display: grid;
     padding: 0.4rem 0.9rem;
     border: 1px solid var(--c-border);
     border-radius: var(--radius-sm);
@@ -92,13 +38,9 @@ const { event } = site;
     color: var(--c-text);
     font-size: var(--fs-small);
     font-weight: 600;
-    line-height: 1.3;
   }
   .day-nav a:hover { border-color: var(--c-primary); color: var(--c-primary); }
-  .day-num { font: 500 0.66rem / 1.2 var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--c-muted); }
-  .tz-note { margin-top: var(--space-3); font-size: var(--fs-small); }
-  .day { padding-top: var(--space-7); scroll-margin-top: 150px; }
-  .day-head { display: grid; gap: var(--space-1); margin-bottom: var(--space-3); }
+  .day { padding-top: var(--space-6); scroll-margin-top: 100px; }
+  .day h2 { margin-bottom: var(--space-2); }
   .sessions { list-style: none; margin: 0; padding: 0; }
-  @media (max-width: 980px) { .prog-tools { position: static; } }
 </style>

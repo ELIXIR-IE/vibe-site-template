@@ -4,105 +4,47 @@ import Hero from "../components/Hero.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import SpeakerCard from "../components/SpeakerCard.astro";
 import DateList from "../components/DateList.astro";
-import NetworkMap from "../components/NetworkMap.astro";
 import SponsorStrip from "../components/SponsorStrip.astro";
-import { site, speakers, timeline, programme, sponsors, hasPage } from "../lib/data";
+import { speakers, timeline, sponsors, hasPage } from "../lib/data";
 import { url } from "../lib/url";
 
 const keynotes = speakers.filter((s) => s.role === "keynote");
-const sessionCount = programme.reduce((n, d) => n + d.sessions.filter((s) => s.type !== "break").length, 0);
-const workshopCount = programme.reduce((n, d) => n + d.sessions.filter((s) => s.type === "workshop").length, 0);
-const highlights = [
-  { value: String(programme.length), label: "days online", text: "Short days that fit around work, all in one time zone." },
-  { value: String(keynotes.length), label: "keynotes", text: "Leading voices in genomics, AI, microbiology and data." },
-  { value: String(sessionCount), label: "sessions", text: `Talks, lightning talks, posters${workshopCount ? " and hands-on workshops" : ""}.` },
-];
 ---
 
 <Base>
   <Hero />
 
-  <section class="section">
-    <div class="container intro-grid">
-      <div class="stack">
-        <p class="eyebrow">Why take part</p>
-        <h2>Share methods, data and tools with the people who use them</h2>
-        <p class="lead">
-          {site.event.full_name} is a free online conference for the bioinformatics community across Ireland
-          and beyond. Present your work, learn something practical, and meet people working on the same problems.
-        </p>
-        {hasPage("about") && <p><a href={url("about")}>More about the conference →</a></p>}
-      </div>
-      <ul class="highlights">
-        {highlights.map((h) => (
-          <li>
-            <span class="hl-value">{h.value}</span>
-            <span class="hl-label">{h.label}</span>
-            <span class="hl-text muted">{h.text}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
   {keynotes.length > 0 && hasPage("speakers") && (
-    <section class="section section--tint">
+    <section class="section">
       <div class="container">
-        <SectionHeading eyebrow="Speakers" title="Keynotes">
+        <SectionHeading title="Keynote speakers">
           <a class="btn btn--ghost btn--small" href={url("speakers")}>All speakers</a>
         </SectionHeading>
-        <div class="keynote-grid">
+        <div class="grid-auto" style="--min: 240px">
           {keynotes.map((s) => <SpeakerCard speaker={s} showBio={false} />)}
         </div>
       </div>
     </section>
   )}
 
-  <section class="section">
-    <div class="container split">
-      {hasPage("key-dates") && (
-        <div>
-          <SectionHeading eyebrow="Coming up" title="Key dates">
-            <a class="btn btn--ghost btn--small" href={url("key-dates")}>All dates</a>
-          </SectionHeading>
-          <DateList items={timeline} upcomingOnly limit={5} />
-        </div>
-      )}
-      <div>
-        <SectionHeading eyebrow="Partner institutions" title="Across the island" />
-        <NetworkMap showList={false} />
+  {hasPage("key-dates") && (
+    <section class="section section--rule">
+      <div class="container">
+        <SectionHeading title="Key dates">
+          <a class="btn btn--ghost btn--small" href={url("key-dates")}>All dates</a>
+        </SectionHeading>
+        <div class="narrow"><DateList items={timeline} upcomingOnly limit={5} /></div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   {sponsors.length > 0 && (
-    <section class="section section--tint">
-      <div class="container">
-        <SponsorStrip />
-      </div>
+    <section class="section section--rule">
+      <div class="container"><SponsorStrip /></div>
     </section>
   )}
 </Base>
 
 <style>
-  .intro-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-7); align-items: start; }
-  .intro-grid h2 { max-width: 22ch; }
-  .highlights { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
-  .highlights li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: var(--space-4);
-    align-items: baseline;
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid var(--c-border);
-  }
-  .hl-value { grid-row: span 2; font: 800 2.6rem / 1 var(--f-display); color: var(--c-accent); font-variant-numeric: tabular-nums; min-width: 2ch; }
-  .hl-label { font-weight: 700; }
-  .hl-text { font-size: var(--fs-small); }
-  .keynote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--space-6); }
-  .keynote-grid:has(> :only-child) { max-width: 400px; }
-  .split { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--space-8); align-items: start; }
-  @media (max-width: 860px) {
-    .intro-grid, .split { grid-template-columns: 1fr; }
-  }
+  .narrow { max-width: 640px; }
 </style>
