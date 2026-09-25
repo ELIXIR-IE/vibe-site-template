@@ -7,13 +7,13 @@ import { site } from "../lib/data";
 import { url } from "../lib/url";
 import { twoLines } from "../lib/text.mjs";
 
-interface Props { variant?: "full" | "short"; size?: number }
-const { variant = "full", size = variant === "full" ? 50 : 40 } = Astro.props;
+interface Props { variant?: "full" | "short"; size?: number; onDark?: boolean }
+const { variant = "full", size = variant === "full" ? 50 : 40, onDark = false } = Astro.props;
 const [line1, line2] = twoLines(site.event.full_name);
 ---
 
-<a class:list={["logo", `logo--${variant}`]} href={url("")}>
-  <Mark size={size} />
+<a class:list={["logo", `logo--${variant}`, { "logo--on-dark": onDark }]} href={url("")}>
+  <Mark size={size} onDark={onDark} />
   <span class="logo-text">
     <span class="logo-name">{site.event.short_name}</span>
     {variant === "full" && (
@@ -46,4 +46,6 @@ const [line1, line2] = twoLines(site.event.full_name);
     color: var(--c-muted);
   }
   .logo-sub span { white-space: nowrap; }
+  .logo--on-dark .logo-name { color: var(--c-on-nav); }
+  .logo--on-dark .logo-sub { color: var(--c-on-nav-muted); }
 </style>

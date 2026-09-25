@@ -13,8 +13,8 @@ const where = [event.venue, event.city].filter(Boolean).join(", ");
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="stack footer-brand">
-      <Logo variant="short" size={44} />
-      <p class="muted">{event.full_name}</p>
+      <Logo variant="short" size={44} onDark />
+      <p class="footer-muted">{event.full_name}</p>
       <p class="footer-when">{formatWhen(event.start_date, event.end_date)}{where && <><br />{where}</>}</p>
     </div>
 
@@ -50,9 +50,10 @@ const where = [event.venue, event.city].filter(Boolean).join(", ");
 <style>
   .site-footer {
     margin-top: var(--space-8);
-    border-top: 1px solid var(--c-border);
-    background: var(--c-alt);
+    background: var(--c-nav);
+    color: var(--c-on-nav);
     font-size: var(--fs-small);
+    --c-focus: #ffffff;
   }
   .footer-grid {
     display: grid;
@@ -64,11 +65,12 @@ const where = [event.venue, event.city].filter(Boolean).join(", ");
     font: 500 var(--fs-tiny) / 1.2 var(--f-mono);
     text-transform: uppercase;
     letter-spacing: 0.09em;
-    color: var(--c-muted);
+    color: var(--c-on-nav-muted);
   }
+  .footer-muted { color: var(--c-on-nav-muted); }
   .footer-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
-  .footer-grid a { color: var(--c-text); text-decoration: none; }
-  .footer-grid a:hover { color: var(--c-primary); text-decoration: underline; }
+  .footer-grid a { color: var(--c-on-nav); text-decoration: none; }
+  .footer-grid a:hover { text-decoration: underline; }
   .footer-when { font-weight: 600; }
   .footer-base {
     display: flex;
@@ -76,10 +78,10 @@ const where = [event.venue, event.city].filter(Boolean).join(", ");
     justify-content: space-between;
     gap: var(--space-2) var(--space-6);
     padding-block: var(--space-4) var(--space-6);
-    border-top: 1px solid var(--c-border);
-    color: var(--c-muted);
+    border-top: 1px solid var(--c-nav-line);
+    color: var(--c-on-nav-muted);
   }
-  .footer-base a { color: inherit; }
+  .footer-base a { color: var(--c-on-nav); }
   @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
   @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
 </style>

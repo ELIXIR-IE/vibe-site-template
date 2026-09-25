@@ -1,19 +1,20 @@
 ---
-// The flow cell island, drawn inline so it follows the page's light/dark colours.
+// The flow cell island, drawn inline so it uses the site colours (onDark for the teal header and footer).
 // Wells and campuses come from data/brand/campuses.yml via scripts/build-logo.mjs.
 import { brand } from "../lib/data";
 
 interface Props {
   size?: number;
   label?: string;          // set to make the mark an image with a text alternative
-  showCampuses?: boolean;  // add hover titles listing campuses (used on the big map)
+  showCampuses?: boolean;  // add hover titles listing campuses
+  onDark?: boolean;        // light colours for the teal header and footer
   class?: string;
 }
-const { size = 48, label, showCampuses = false, class: cls } = Astro.props;
+const { size = 48, label, showCampuses = false, onDark = false, class: cls } = Astro.props;
 ---
 
 <svg
-  class:list={["mark", cls]}
+  class:list={["mark", { "mark--on-dark": onDark }, cls]}
   viewBox="0 0 64 64"
   width={size}
   height={size}
@@ -38,4 +39,7 @@ const { size = 48, label, showCampuses = false, class: cls } = Astro.props;
   .mark-bed { fill: var(--c-bed); }
   .mark-well { fill: var(--c-primary); }
   .mark-hit { fill: var(--c-accent); }
+  .mark--on-dark .mark-bed { fill: rgb(255 255 255 / 0.14); }
+  .mark--on-dark .mark-well { fill: #ffffff; }
+  .mark--on-dark .mark-hit { fill: #ff8a73; }
 </style>
