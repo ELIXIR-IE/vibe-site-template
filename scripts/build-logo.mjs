@@ -126,9 +126,9 @@ function lockup(kind, p) {
   let body = `<g>${markBody(p)}</g>`;
   let width;
   if (kind === "full") {
-    const n = text(DISPLAY, NAME, x, 33, 38);
-    const s1 = text(BODY_SEMI, SUB[0], x + 1, 47, 9, 0.08);
-    const s2 = text(BODY_SEMI, SUB[1], x + 1, 58, 9, 0.08);
+    const n = text(DISPLAY, NAME, x, 34, 42);
+    const s1 = text(BODY_SEMI, SUB[0], x + 1, 47, 8, 0.08);
+    const s2 = text(BODY_SEMI, SUB[1], x + 1, 57, 8, 0.08);
     body += `<path d="${n.d}" fill="${p.name}"/><path d="${s1.d}${s2.d}" fill="${p.sub}"/>`;
     width = Math.ceil(x + Math.max(n.width, s1.width + 1, s2.width + 1) + 2);
   } else {
@@ -150,16 +150,17 @@ function ogImage() {
   const colX = 560, colW = 580;
   const title = site.event.title;
   const tSize = fit(DISPLAY, title, 104, colW);
-  const nSize = fit(BODY_SEMI, site.event.full_name, 34, colW);
+  const [full1, full2] = twoLines(site.event.full_name);
+  const nSize = Math.min(fit(BODY_SEMI, full1, 32, colW), fit(BODY_SEMI, full2, 32, colW));
   const when = formatWhen(site.event.start_date, site.event.end_date);
   const how = [site.event.venue, site.event.city].filter(Boolean).join(", ");
   const org = site.host?.name ? `Hosted by ${site.host.name}` : "";
   const parts = [
-    `<path d="${text(DISPLAY, title, colX, 260, tSize).d}" fill="${p.name}"/>`,
-    `<path d="${text(BODY_SEMI, site.event.full_name, colX, 316, nSize).d}" fill="${p.sub}"/>`,
-    `<rect x="${colX}" y="370" width="56" height="6" rx="3" fill="${p.hit}"/>`,
-    `<path d="${text(BODY_SEMI, when, colX, 432, fit(BODY_SEMI, when, 36, colW)).d}" fill="${p.text}"/>`,
-    how && `<path d="${text(BODY_MED, how, colX, 478, fit(BODY_MED, how, 30, colW)).d}" fill="${p.sub}"/>`,
+    `<path d="${text(DISPLAY, title, colX, 240, tSize).d}" fill="${p.name}"/>`,
+    `<path d="${text(BODY_SEMI, full1, colX, 296, nSize).d}${text(BODY_SEMI, full2, colX, 296 + nSize * 1.25, nSize).d}" fill="${p.sub}"/>`,
+    `<rect x="${colX}" y="384" width="56" height="6" rx="3" fill="${p.hit}"/>`,
+    `<path d="${text(BODY_SEMI, when, colX, 444, fit(BODY_SEMI, when, 36, colW)).d}" fill="${p.text}"/>`,
+    how && `<path d="${text(BODY_MED, how, colX, 490, fit(BODY_MED, how, 30, colW)).d}" fill="${p.sub}"/>`,
     org && `<path d="${text(BODY_MED, org, colX, 572, fit(BODY_MED, org, 24, colW)).d}" fill="${p.sub}"/>`,
   ].join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">` +

@@ -7,7 +7,7 @@
 
 event:
   short_name: VIBE                                  # the big word in the logo
-  full_name: Virtual Institute of Bioinformatics    # the two-line subtitle
+  full_name: Virtual Institute of Bioinformatics and Evolution   # the two-line subtitle
   edition: "20XX"
   title: VIBE 20XX                                  # browser tab and social card
   start_date:                  # YYYY-MM-DD
