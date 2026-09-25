@@ -1,0 +1,37 @@
+{
+  "name": "vibe-site-template",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Conference website template for the Virtual Institute of Bioinformatics (VIBE), built with Astro and deployed to GitHub Pages.",
+  "license": "CC-BY-4.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build-data": "node scripts/build-data.mjs",
+    "build-logo": "node scripts/build-logo.mjs",
+    "predev": "npm run build-data && npm run build-logo",
+    "dev": "astro dev",
+    "prebuild": "npm run build-data && npm run build-logo",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/bricolage-grotesque": "^5.3.0",
+    "@fontsource/figtree": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "astro": "^7.3.5",
+    "js-yaml": "^5.4.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/js-yaml": "^4.0.9",
+    "opentype.js": "^2.0.0",
+    "sharp": "^0.35.4",
+    "typescript": "^6.0.3"
+  }
+}

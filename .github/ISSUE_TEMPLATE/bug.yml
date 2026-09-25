@@ -1,0 +1,21 @@
+name: Something is broken
+description: A page, link or build that does not work as expected
+labels: [bug]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or file
+      placeholder: e.g. /programme/ or data/speakers.yml
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device (if relevant)

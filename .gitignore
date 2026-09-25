@@ -1,0 +1,17 @@
+# build output
+dist/
+.astro/
+
+# generated from data/*.yml by scripts/build-data.mjs; never hand-edit
+src/generated/
+
+# dependencies
+node_modules/
+
+# logs and local files
+npm-debug.log*
+.env
+.env.*
+.DS_Store
+.idea/
+.vscode/

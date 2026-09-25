@@ -1,0 +1,84 @@
+---
+// Days, hours, minutes and seconds until the conference opens.
+// Switches to "Happening now" during the event and hides afterwards.
+import { site } from "../lib/data";
+
+const { eventStart, eventEnd } = site.derived;
+const ms = Math.max(0, Date.parse(eventStart) - Date.now());
+const initial = {
+  days: Math.floor(ms / 864e5),
+  hours: Math.floor(ms / 36e5) % 24,
+  minutes: Math.floor(ms / 6e4) % 60,
+  seconds: Math.floor(ms / 1e3) % 60,
+};
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<div class="countdown" data-countdown data-start={eventStart} data-end={eventEnd}>
+  <p class="countdown-label eyebrow" data-cd-label>Starts in</p>
+  <div class="countdown-cells" role="timer" aria-live="off">
+    <div><b data-cd="days">{initial.days}</b><span>Days</span></div>
+    <div><b data-cd="hours">{pad(initial.hours)}</b><span>Hours</span></div>
+    <div><b data-cd="minutes">{pad(initial.minutes)}</b><span>Minutes</span></div>
+    <div><b data-cd="seconds">{pad(initial.seconds)}</b><span>Seconds</span></div>
+  </div>
+  <p class="countdown-live" data-cd-live hidden><span class="live-dot" aria-hidden="true"></span> Happening now</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-countdown]").forEach((root) => {
+    const start = Date.parse(root.dataset.start!);
+    const end = Date.parse(root.dataset.end!);
+    const cells = root.querySelector<HTMLElement>(".countdown-cells")!;
+    const label = root.querySelector<HTMLElement>("[data-cd-label]")!;
+    const live = root.querySelector<HTMLElement>("[data-cd-live]")!;
+    const set = (k: string, v: string) => { const el = root.querySelector(`[data-cd="${k}"]`); if (el) el.textContent = v; };
+    const pad = (n: number) => String(n).padStart(2, "0");
+    function tick() {
+      const now = Date.now();
+      if (now >= end) { root.hidden = true; return false; }
+      if (now >= start) { cells.hidden = true; label.hidden = true; live.hidden = false; return false; }
+      const ms = start - now;
+      set("days", String(Math.floor(ms / 864e5)));
+      set("hours", pad(Math.floor(ms / 36e5) % 24));
+      set("minutes", pad(Math.floor(ms / 6e4) % 60));
+      set("seconds", pad(Math.floor(ms / 1e3) % 60));
+      return true;
+    }
+    if (tick()) {
+      const id = setInterval(() => { if (!tick()) clearInterval(id); }, 1000);
+    }
+  });
+</script>
+
+<style>
+  .countdown { display: grid; gap: var(--space-3); }
+  .countdown-cells { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); }
+  .countdown-cells div {
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-1);
+    text-align: center;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .countdown b {
+    font: 800 clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem) / 1 var(--f-display);
+    color: var(--c-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown span {
+    font: 500 0.66rem / 1 var(--f-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-muted);
+  }
+  .countdown-live { display: flex; align-items: center; gap: var(--space-2); font-weight: 700; color: var(--c-primary); }
+  .countdown-live[hidden], .countdown-cells[hidden] { display: none; }
+  .live-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c-accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .live-dot { animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: 0.35; } }
+  }
+</style>

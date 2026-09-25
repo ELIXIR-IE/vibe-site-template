@@ -1,0 +1,80 @@
+# Institutions shown as coral wells in the logo (the "flow cell island").
+#
+# Each campus lights the well nearest to it on the map, so campuses in the
+# same city share a well. Add, remove or edit entries here, then push: the
+# logo files in public/logo/ and the favicons are rebuilt on every build.
+#
+# Coordinates are decimal degrees (lat north, lon east; Ireland has negative lon).
+# Northern Ireland institutions work the same way; the map covers the whole island.
+
+- name: University College Dublin
+  short: UCD
+  campuses:
+    - { name: Belfield, lat: 53.307, lon: -6.223 }
+- name: Trinity College Dublin
+  short: TCD
+  campuses:
+    - { name: College Green, lat: 53.344, lon: -6.254 }
+- name: Dublin City University
+  short: DCU
+  campuses:
+    - { name: Glasnevin, lat: 53.386, lon: -6.256 }
+- name: RCSI University of Medicine and Health Sciences
+  short: RCSI
+  campuses:
+    - { name: St Stephen's Green, lat: 53.339, lon: -6.262 }
+- name: Technological University Dublin
+  short: TU Dublin
+  campuses:
+    - { name: Grangegorman, lat: 53.355, lon: -6.280 }
+    - { name: Tallaght, lat: 53.291, lon: -6.362 }
+    - { name: Blanchardstown, lat: 53.405, lon: -6.378 }
+- name: Maynooth University
+  campuses:
+    - { name: Maynooth, lat: 53.381, lon: -6.600 }
+- name: University College Cork
+  short: UCC
+  campuses:
+    - { name: Cork, lat: 51.893, lon: -8.492 }
+- name: Tyndall National Institute
+  campuses:
+    - { name: Cork, lat: 51.894, lon: -8.486 }
+- name: University of Galway
+  campuses:
+    - { name: Galway, lat: 53.279, lon: -9.062 }
+    - { name: Shannon College of Hotel Management, lat: 52.700, lon: -8.915 }
+- name: University of Limerick
+  short: UL
+  campuses:
+    - { name: Limerick, lat: 52.674, lon: -8.573 }
+- name: Atlantic Technological University
+  short: ATU
+  campuses:
+    - { name: Galway, lat: 53.278, lon: -9.010 }
+    - { name: Mayo (Castlebar), lat: 53.860, lon: -9.300 }
+    - { name: Sligo, lat: 54.278, lon: -8.458 }
+    - { name: Donegal (Letterkenny), lat: 54.953, lon: -7.730 }
+    - { name: Killybegs, lat: 54.634, lon: -8.440 }
+    - { name: Connemara (Letterfrack), lat: 53.552, lon: -9.943 }
+    - { name: Mountbellew, lat: 53.470, lon: -8.505 }
+- name: Munster Technological University
+  short: MTU
+  campuses:
+    - { name: Cork (Bishopstown), lat: 51.885, lon: -8.534 }
+    - { name: Kerry (Tralee), lat: 52.270, lon: -9.700 }
+    - { name: National Maritime College (Ringaskiddy), lat: 51.830, lon: -8.310 }
+- name: South East Technological University
+  short: SETU
+  campuses:
+    - { name: Waterford, lat: 52.246, lon: -7.137 }
+    - { name: Carlow, lat: 52.826, lon: -6.930 }
+    - { name: Wexford, lat: 52.336, lon: -6.460 }
+    - { name: Wicklow, lat: 52.990, lon: -6.070 }
+- name: Teagasc
+  campuses:
+    - { name: Oak Park (Carlow), lat: 52.860, lon: -6.915 }
+    - { name: Moorepark (Fermoy), lat: 52.163, lon: -8.250 }
+    - { name: Grange (Meath), lat: 53.518, lon: -6.660 }
+    - { name: Ashtown (Dublin), lat: 53.372, lon: -6.330 }
+    - { name: Athenry (Galway), lat: 53.300, lon: -8.770 }
+    - { name: Johnstown Castle (Wexford), lat: 52.295, lon: -6.505 }

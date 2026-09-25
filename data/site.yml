@@ -1,0 +1,90 @@
+# ---------------------------------------------------------------------------
+# Main settings for one edition of the conference. Start here.
+#
+# Dates: use YYYY-MM-DD. Times: use "HH:MM" in quotes.
+# A full timestamp such as 2027-04-13T17:00:00+01:00 also works anywhere a
+# date is accepted, when a deadline needs an exact time.
+# ---------------------------------------------------------------------------
+
+event:
+  short_name: VIBE                                  # the big word in the logo
+  full_name: Virtual Institute of Bioinformatics    # the two-line subtitle
+  edition: "2027"
+  title: VIBE 2027                                  # browser tab and social cards
+  tagline: Open tools, shared data and the people who build them, across the island of Ireland.
+  start_date: 2027-04-20
+  end_date: 2027-04-22
+  start_time: "09:30"          # first session on day one, used by the countdown
+  end_time: "17:00"            # last session on the final day
+  utc_offset: "+01:00"         # offset of the event time zone on those dates
+  timezone_label: Irish Standard Time (UTC+1)
+  format: online               # online | hybrid | in-person
+  format_label: Online and free to attend
+  # location: Galway, Ireland  # optional, for hybrid or in-person editions
+  contact_email: vibe@example.org
+
+# The institution hosting this edition. VIBE rotates between institutions
+# each year, so change this for every edition. Shown in the footer, the
+# hero and the social card. Delete the block to leave the host out.
+host:
+  name: Host Institution
+  url: https://example.org
+
+# Shows a banner on every page saying that people and sessions are
+# placeholders. Set to false once the real content is in.
+demo_notice: true
+
+# Pages to build, in menu order. Delete a line (or comment it out with #)
+# to remove that page from the site and the menus.
+#   nav: header  → top menu
+#   nav: footer  → footer menu only
+pages:
+  - { slug: programme, label: Programme, nav: header }
+  - { slug: speakers, label: Speakers, nav: header }
+  - { slug: call-for-abstracts, label: Call for abstracts, nav: header }
+  - { slug: key-dates, label: Key dates, nav: header }
+  - { slug: committees, label: Committees, nav: header }
+  - { slug: about, label: About, nav: header }
+  - { slug: register, label: Register, nav: footer }
+  - { slug: attend, label: Attending online, nav: footer }
+  - { slug: sponsors, label: Sponsors, nav: footer }
+  - { slug: faq, label: FAQ, nav: footer }
+  - { slug: code-of-conduct, label: Code of conduct, nav: footer }
+
+registration:
+  opens: 2026-11-02
+  closes: 2027-04-13
+  url: https://example.org/vibe-2027/register    # your external form (Eventbrite, Indico, Microsoft Forms, ...)
+  button_label: Register now
+  fees:
+    - { category: Students and early-career researchers, fee: Free }
+    - { category: Academic and public sector, fee: Free }
+    - { category: Industry, fee: Free }
+  includes:
+    - Live access to all keynotes, talks and panels
+    - A place in the hands-on workshops (first come, first served)
+    - Recordings of recorded sessions for 30 days after the event
+    - A certificate of attendance on request
+
+abstracts:
+  opens: 2026-09-15
+  deadline: 2027-01-31
+  notification: 2027-02-28
+  url: https://example.org/vibe-2027/abstracts   # your submission system
+  button_label: Submit an abstract
+  word_limit: 300
+  topics:
+    - Genomics, transcriptomics and single-cell analysis
+    - Proteomics, structural bioinformatics and molecular modelling
+    - Machine learning and AI in the life sciences
+    - Microbiome, metagenomics and One Health
+    - Clinical and translational bioinformatics
+    - FAIR data, research software and training
+  formats:
+    - { name: Contributed talk, detail: 15 minutes plus 5 for questions }
+    - { name: Lightning talk, detail: 5 minutes, ideal for early results }
+    - { name: Poster, detail: A PDF poster in the virtual poster hall, with a live Q&A slot }
+
+social:
+  - { label: Bluesky, url: https://bsky.app/ }
+  - { label: LinkedIn, url: https://www.linkedin.com/ }

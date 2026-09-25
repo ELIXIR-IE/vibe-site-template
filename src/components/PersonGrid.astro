@@ -1,0 +1,57 @@
+---
+import type { Member } from "../lib/data";
+
+interface Props { members: Member[] }
+const { members } = Astro.props;
+// Chairs first, then everyone else in the order given.
+const sorted = [...members].sort((a, b) => Number(!!b.role) - Number(!!a.role));
+---
+
+<ul class="people">
+  {sorted.map((m) => (
+    <li class="person">
+      <span class="person-name">
+        {m.name}
+        {m.orcid && (
+          <a class="orcid" href={`https://orcid.org/${m.orcid}`} rel="noopener" aria-label={`ORCID record for ${m.name}`}>iD</a>
+        )}
+      </span>
+      <span class="person-aff">{m.affiliation}</span>
+      {m.role && <span class="tag person-role">{m.role}</span>}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .people {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: var(--space-3);
+  }
+  .person {
+    display: grid;
+    gap: 0.15rem;
+    align-content: start;
+    padding: var(--space-4);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-md);
+    background: var(--c-bg);
+  }
+  .person-name { font-weight: 600; display: flex; align-items: center; gap: var(--space-2); }
+  .person-aff { font-size: var(--fs-small); color: var(--c-muted); }
+  .person-role { justify-self: start; margin-top: var(--space-2); background: var(--c-accent-soft); color: var(--c-cta); }
+  .orcid {
+    display: inline-grid;
+    place-items: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    background: var(--c-primary-soft);
+    color: var(--c-primary-ink);
+    font: 700 0.62rem / 1 var(--f-body);
+    text-decoration: none;
+  }
+</style>

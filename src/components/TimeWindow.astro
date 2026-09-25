@@ -1,0 +1,21 @@
+---
+// Shows different content before, during and after a date range.
+// Mark children with data-when="before", "during", "after" (or several,
+// e.g. data-when="before during"). The state is set when the site is built
+// and corrected in the visitor's browser, so it stays right between rebuilds.
+// Do not nest one TimeWindow inside another.
+import { windowState } from "../lib/dates.mjs";
+
+interface Props {
+  from?: string | null;
+  until?: string | null;
+  as?: "div" | "span" | "section" | "li";
+  class?: string;
+}
+const { from, until, as: Tag = "div", class: cls } = Astro.props;
+const state = windowState(from ?? undefined, until ?? undefined);
+---
+
+<Tag class={cls} data-window data-from={from ?? undefined} data-until={until ?? undefined} data-state={state}>
+  <slot />
+</Tag>

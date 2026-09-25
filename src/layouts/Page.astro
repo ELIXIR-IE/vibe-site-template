@@ -1,0 +1,37 @@
+---
+// Inner pages: a page header (eyebrow, title, intro) above the content.
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  intro?: string;
+  description?: string;
+  narrow?: boolean;   // limit the content to reading width (Markdown pages)
+}
+const { title, eyebrow, intro, description, narrow = false } = Astro.props;
+---
+
+<Base title={title} description={description ?? intro}>
+  <header class="page-header">
+    <div class="container page-header-inner">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {intro && <p class="lead">{intro}</p>}
+      <slot name="header-extra" />
+    </div>
+  </header>
+  <div class:list={["container", "page-body", { "page-body--narrow": narrow }]}>
+    <slot />
+  </div>
+</Base>
+
+<style>
+  .page-header {
+    background: linear-gradient(180deg, var(--c-hero-from), var(--c-bg));
+    padding-block: var(--space-7) var(--space-6);
+  }
+  .page-header-inner { display: grid; gap: var(--space-3); }
+  .page-body { padding-block: var(--space-5) 0; }
+  .page-body--narrow > :global(*) { max-width: var(--prose-width); }
+</style>

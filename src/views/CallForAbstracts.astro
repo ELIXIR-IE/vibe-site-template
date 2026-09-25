@@ -1,0 +1,100 @@
+---
+import Page from "../layouts/Page.astro";
+import Callout from "../components/Callout.astro";
+import TimeWindow from "../components/TimeWindow.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import DateList from "../components/DateList.astro";
+import { site, timeline, pageLabel } from "../lib/data";
+import { formatDate } from "../lib/dates.mjs";
+
+const { abstracts: abs = {}, derived, event } = site;
+const abstractDates = timeline.filter((d) => d.group === "abstracts");
+---
+
+<Page
+  title={pageLabel("call-for-abstracts")}
+  eyebrow={event.title}
+  intro="Share your work as a talk, a lightning talk or a poster. Early-career researchers are especially welcome."
+>
+  <TimeWindow from={derived.abstractsOpen} until={derived.abstractsClose}>
+    <div data-when="during">
+      <Callout title={`Submissions are open until ${abs.deadline ? formatDate(abs.deadline, { weekday: true }) : "the deadline"}`}>
+        <p>The deadline is 23:59 in the conference time zone ({event.timezone_label}).</p>
+        {abs.url && <a slot="actions" class="btn btn--cta" href={abs.url} rel="noopener">{abs.button_label ?? "Submit an abstract"}</a>}
+      </Callout>
+    </div>
+    <div data-when="before">
+      <Callout tone="quiet" title={`Submissions open on ${abs.opens ? formatDate(abs.opens, { weekday: true }) : "a date to be announced"}`}>
+        <p>Read the guidance below to get ready. The submission link will appear here.</p>
+      </Callout>
+    </div>
+    <div data-when="after">
+      <Callout tone="quiet" title="The call for abstracts has closed">
+        <p>Thank you to everyone who submitted.{abs.notification && ` Authors will hear back by ${formatDate(abs.notification)}.`}</p>
+      </Callout>
+    </div>
+  </TimeWindow>
+
+  <div class="cfa-grid">
+    <section class="stack-lg">
+      <div>
+        <SectionHeading title="Topics" />
+        <ul class="topics">{(abs.topics ?? []).map((t) => <li>{t}</li>)}</ul>
+      </div>
+
+      <div>
+        <SectionHeading title="Formats" />
+        <div class="grid-auto" style="--min: 200px">
+          {(abs.formats ?? []).map((f) => (
+            <div class="card format"><h3>{f.name}</h3>{f.detail && <p class="muted">{f.detail}</p>}</div>
+          ))}
+        </div>
+      </div>
+
+      <div class="prose">
+        <h2>How to submit</h2>
+        <ol>
+          <li>Write an abstract of up to {abs.word_limit ?? 300} words in English, with a title, authors and affiliations.</li>
+          <li>Choose a topic and your preferred format. The programme committee may offer a different format.</li>
+          <li>Submit through the online form. You can edit your submission until the deadline.</li>
+        </ol>
+        <p>Every abstract is read by at least two members of the programme committee. Accepted abstracts are published on this site.</p>
+      </div>
+    </section>
+
+    <aside class="cfa-dates" aria-labelledby="cfa-dates-h">
+      <h2 id="cfa-dates-h" class="eyebrow">Dates for authors</h2>
+      <DateList items={abstractDates} />
+    </aside>
+  </div>
+</Page>
+
+<style>
+  .cfa-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: var(--space-7);
+    margin-top: var(--space-7);
+    align-items: start;
+  }
+  .topics {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-2);
+  }
+  .topics li {
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--c-primary-line);
+    background: var(--c-surface);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .format { display: grid; gap: var(--space-2); }
+  .cfa-dates { position: sticky; top: 100px; display: grid; gap: var(--space-3); }
+  @media (max-width: 860px) {
+    .cfa-grid { grid-template-columns: 1fr; }
+    .cfa-dates { position: static; }
+  }
+</style>

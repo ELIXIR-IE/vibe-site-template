@@ -1,0 +1,24 @@
+---
+// Banner shown while demo_notice is true in data/site.yml.
+import { site } from "../lib/data";
+---
+
+{site.demo_notice && (
+  <div class="demo-notice" role="note">
+    <div class="container">
+      <strong>Template preview.</strong> People, sessions and links on this site are placeholders.
+      Set <code>demo_notice: false</code> in <code>data/site.yml</code> to remove this banner.
+    </div>
+  </div>
+)}
+
+<style>
+  .demo-notice {
+    background: var(--c-accent-soft);
+    color: var(--c-text);
+    font-size: 0.85rem;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--c-border);
+  }
+  .demo-notice code { font-family: var(--f-mono); font-size: 0.8rem; }
+</style>

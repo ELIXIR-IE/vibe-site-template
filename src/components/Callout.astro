@@ -1,0 +1,32 @@
+---
+// A highlighted box for status messages and key actions.
+interface Props { tone?: "primary" | "accent" | "quiet"; title?: string; "data-when"?: string }
+const { tone = "primary", title, ...rest } = Astro.props;
+---
+
+<div class:list={["callout", `callout--${tone}`]} {...rest}>
+  <div class="callout-text">
+    {title && <p class="callout-title">{title}</p>}
+    <slot />
+  </div>
+  <div class="callout-actions"><slot name="actions" /></div>
+</div>
+
+<style>
+  .callout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4) var(--space-6);
+    padding: var(--space-5) var(--space-6);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--c-primary-line);
+    background: var(--c-primary-soft);
+  }
+  .callout--accent { border-color: var(--c-accent); background: var(--c-accent-soft); }
+  .callout--quiet { border-color: var(--c-border); background: var(--c-surface); }
+  .callout-text { display: grid; gap: var(--space-1); max-width: 60ch; }
+  .callout-title { font: 700 1.2rem / 1.25 var(--f-display); color: var(--c-heading); }
+  .callout-actions:empty { display: none; }
+</style>

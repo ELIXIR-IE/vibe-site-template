@@ -1,0 +1,21 @@
+---
+// Renders a Markdown file from src/prose/ as a page.
+// Frontmatter: title (required), eyebrow and intro (optional).
+import type { MarkdownInstance } from "astro";
+import Page from "../layouts/Page.astro";
+
+interface Props { doc: MarkdownInstance<Record<string, any>> }
+const { doc } = Astro.props;
+const { title, eyebrow, intro } = doc.frontmatter as { title: string; eyebrow?: string; intro?: string };
+---
+
+<Page title={title} eyebrow={eyebrow} intro={intro} narrow>
+  <article class="prose prose-page">
+    <doc.Content />
+  </article>
+  <slot />
+</Page>
+
+<style>
+  .prose-page { padding-top: var(--space-4); }
+</style>

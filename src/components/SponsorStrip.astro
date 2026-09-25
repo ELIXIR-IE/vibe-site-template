@@ -1,0 +1,55 @@
+---
+import { sponsors } from "../lib/data";
+import { url } from "../lib/url";
+
+interface Props { large?: boolean }
+const { large = false } = Astro.props;
+---
+
+{sponsors.length > 0 && (
+  <div class:list={["sponsors", { "sponsors--large": large }]}>
+    {sponsors.map((t) => (
+      <div class="tier">
+        <p class="eyebrow">{t.tier}</p>
+        <ul>
+          {t.sponsors.map((s) => {
+            const inner = s.logo
+              ? <img src={url(`img/sponsors/${s.logo}`)} alt={s.name} loading="lazy" />
+              : <span class="sponsor-name">{s.name}</span>;
+            return <li>{s.url ? <a href={s.url} rel="noopener">{inner}</a> : inner}</li>;
+          })}
+        </ul>
+      </div>
+    ))}
+  </div>
+)}
+
+<style>
+  .sponsors { display: grid; gap: var(--space-6); }
+  .tier { display: grid; gap: var(--space-3); }
+  .tier ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+    gap: var(--space-3);
+  }
+  .sponsors--large .tier ul { grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+  .tier li > a, .tier li > span, .tier li > img {
+    display: grid;
+    place-items: center;
+    min-height: 84px;
+    padding: var(--space-4);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-md);
+    background: var(--c-bg);
+    text-decoration: none;
+    color: var(--c-text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .sponsors--large .tier li > a, .sponsors--large .tier li > span { min-height: 120px; }
+  .tier li > a:hover { border-color: var(--c-primary-line); box-shadow: var(--shadow-lift); }
+  .tier img { max-height: 56px; width: auto; }
+  .sponsor-name { font: 700 1.05rem / 1.2 var(--f-display); text-align: center; }
+</style>

@@ -1,0 +1,84 @@
+---
+import Logo from "./Logo.astro";
+import { site } from "../lib/data";
+import { url } from "../lib/url";
+import { formatRange } from "../lib/dates.mjs";
+
+const { event, host, social = [] } = site;
+const headerPages = site.pages.filter((p) => p.nav === "header");
+const footerPages = site.pages.filter((p) => p.nav !== "header");
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="stack footer-brand">
+      <Logo variant="short" size={44} />
+      <p class="muted">{event.full_name}</p>
+      <p class="footer-when">{formatRange(event.start_date, event.end_date)}<br />{event.format_label}</p>
+    </div>
+
+    <nav class="stack" aria-label="Conference">
+      <h2 class="footer-heading">Conference</h2>
+      <ul>{headerPages.map((p) => <li><a href={url(p.slug)}>{p.label}</a></li>)}</ul>
+    </nav>
+
+    <nav class="stack" aria-label="Taking part">
+      <h2 class="footer-heading">Taking part</h2>
+      <ul>{footerPages.map((p) => <li><a href={url(p.slug)}>{p.label}</a></li>)}</ul>
+    </nav>
+
+    <div class="stack">
+      <h2 class="footer-heading">Contact</h2>
+      <ul>
+        {event.contact_email && <li><a href={`mailto:${event.contact_email}`}>{event.contact_email}</a></li>}
+        {social.map((s) => <li><a href={s.url} rel="noopener">{s.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="footer-base">
+      {host && (
+        <p>{event.title} is hosted by {host.url ? <a href={host.url}>{host.name}</a> : host.name}</p>
+      )}
+      <p>Site built from the <a href="https://github.com/ELIXIR-IE/vibe-site-template">VIBE site template</a>, shared under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--c-border);
+    background: var(--c-surface);
+    font-size: var(--fs-small);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: var(--space-6);
+    padding-block: var(--space-7);
+  }
+  .footer-heading {
+    font: 500 var(--fs-tiny) / 1.2 var(--f-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--c-muted);
+  }
+  .footer-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+  .footer-grid a { color: var(--c-text); text-decoration: none; }
+  .footer-grid a:hover { color: var(--c-primary); text-decoration: underline; }
+  .footer-when { font-weight: 600; }
+  .footer-base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--c-border);
+    color: var(--c-muted);
+  }
+  .footer-base a { color: inherit; }
+  @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; } .footer-brand { grid-column: 1 / -1; } }
+  @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+</style>

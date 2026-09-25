@@ -1,0 +1,14 @@
+name: Template improvement
+description: Suggest a feature or change that would help every edition
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to change or add?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would it help future editions?

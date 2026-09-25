@@ -1,0 +1,25 @@
+---
+interface Props { eyebrow?: string; title: string; intro?: string; id?: string }
+const { eyebrow, title, intro, id } = Astro.props;
+---
+
+<div class="section-heading">
+  <div class="stack">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 id={id}>{title}</h2>
+    {intro && <p class="lead">{intro}</p>}
+  </div>
+  <slot />
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-4) var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+  .stack { gap: var(--space-3); }
+</style>

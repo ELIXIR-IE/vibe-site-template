@@ -1,0 +1,39 @@
+---
+// Builds one page for each entry under `pages:` in data/site.yml.
+// To add a page of your own, create src/pages/<name>.astro (it takes
+// priority over this file) or add a view here and a line in site.yml.
+import Programme from "../views/Programme.astro";
+import Speakers from "../views/Speakers.astro";
+import CallForAbstracts from "../views/CallForAbstracts.astro";
+import KeyDates from "../views/KeyDates.astro";
+import Committees from "../views/Committees.astro";
+import About from "../views/About.astro";
+import Register from "../views/Register.astro";
+import Attend from "../views/Attend.astro";
+import Sponsors from "../views/Sponsors.astro";
+import Faq from "../views/Faq.astro";
+import CodeOfConduct from "../views/CodeOfConduct.astro";
+import { site } from "../lib/data";
+
+export function getStaticPaths() {
+  return site.pages.map((p) => ({ params: { page: p.slug } }));
+}
+
+const VIEWS = {
+  programme: Programme,
+  speakers: Speakers,
+  "call-for-abstracts": CallForAbstracts,
+  "key-dates": KeyDates,
+  committees: Committees,
+  about: About,
+  register: Register,
+  attend: Attend,
+  sponsors: Sponsors,
+  faq: Faq,
+  "code-of-conduct": CodeOfConduct,
+} as const;
+
+const View = VIEWS[Astro.params.page as keyof typeof VIEWS];
+---
+
+<View />

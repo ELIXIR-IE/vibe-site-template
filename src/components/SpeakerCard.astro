@@ -1,0 +1,56 @@
+---
+import type { Speaker } from "../lib/data";
+import { url } from "../lib/url";
+import { initials } from "../lib/text.mjs";
+
+interface Props { speaker: Speaker; showBio?: boolean }
+const { speaker: s, showBio = true } = Astro.props;
+
+const LINK_LABEL: Record<string, string> = { orcid: "ORCID", website: "Website", bluesky: "Bluesky", linkedin: "LinkedIn" };
+const linkHref = (k: string, v: string) => (k === "orcid" && !v.startsWith("http") ? `https://orcid.org/${v}` : v);
+---
+
+<article class="speaker" id={s.id}>
+  {s.photo
+    ? <img class="speaker-photo" src={url(`img/speakers/${s.photo}`)} alt={`Photo of ${s.name}`} width="400" height="400" loading="lazy" />
+    : <div class="speaker-photo speaker-initials" aria-hidden="true">{initials(s.name)}</div>}
+  <div class="speaker-text">
+    <h3>{s.name}</h3>
+    <p class="speaker-aff">{s.affiliation}</p>
+    {s.talk && <p class="speaker-talk">{s.talk}</p>}
+    {showBio && s.bio && <p class="speaker-bio">{s.bio}</p>}
+    {s.links && (
+      <p class="speaker-links">
+        {Object.entries(s.links).map(([k, v]) => <a href={linkHref(k, v)} rel="noopener">{LINK_LABEL[k] ?? k}</a>)}
+      </p>
+    )}
+  </div>
+</article>
+
+<style>
+  .speaker { display: grid; gap: var(--space-4); align-content: start; }
+  .speaker-photo {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background: var(--c-primary-soft);
+  }
+  .speaker-initials {
+    display: grid;
+    place-items: center;
+    font: 800 clamp(2rem, 1.5rem + 2vw, 3rem) / 1 var(--f-display);
+    color: var(--c-primary);
+    background:
+      radial-gradient(circle at 1px 1px, var(--c-primary-line) 1.2px, transparent 1.6px) 0 0 / 14px 14px,
+      var(--c-primary-soft);
+  }
+  .speaker-text { display: grid; gap: var(--space-1); }
+  .speaker-aff { color: var(--c-muted); font-size: var(--fs-small); }
+  .speaker-talk { font-weight: 600; margin-top: var(--space-2); }
+  .speaker-talk::before { content: "“"; color: var(--c-accent); }
+  .speaker-talk::after { content: "”"; color: var(--c-accent); }
+  .speaker-bio { font-size: var(--fs-small); margin-top: var(--space-1); }
+  .speaker-links { display: flex; flex-wrap: wrap; gap: var(--space-3); font-size: var(--fs-small); margin-top: var(--space-1); }
+</style>

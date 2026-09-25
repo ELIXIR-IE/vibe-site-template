@@ -1,0 +1,81 @@
+---
+import Mark from "./Mark.astro";
+import Countdown from "./Countdown.astro";
+import TimeWindow from "./TimeWindow.astro";
+import { site, hasPage } from "../lib/data";
+import { url } from "../lib/url";
+import { formatRange, formatDate } from "../lib/dates.mjs";
+
+const { event, derived, host, registration: reg = {}, abstracts: abs = {} } = site;
+---
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="pill">{event.format_label ?? event.format}</p>
+      <h1>
+        <span class="hero-name">{event.title}</span>
+        <span class="hero-full">{event.full_name}</span>
+      </h1>
+      {event.tagline && <p class="hero-tagline">{event.tagline}</p>}
+      <p class="hero-facts">
+        <span><strong>{formatRange(event.start_date, event.end_date)}</strong></span>
+        {host && <span>Hosted by {host.url ? <a href={host.url}>{host.name}</a> : host.name}</span>}
+        {event.location && <span>{event.location}</span>}
+      </p>
+
+      <div class="btn-row">
+        {hasPage("register") && (
+          <TimeWindow as="span" from={derived.registrationOpens} until={derived.registrationCloses}>
+            <a class="btn btn--cta" data-when="during" href={url("register")}>{reg.button_label ?? "Register"}</a>
+            <a class="btn btn--primary" data-when="before" href={url("register")}>
+              Registration opens {reg.opens && formatDate(reg.opens, { year: false })}
+            </a>
+          </TimeWindow>
+        )}
+        {hasPage("call-for-abstracts") && (
+          <TimeWindow as="span" from={derived.abstractsOpen} until={derived.abstractsClose}>
+            <a class="btn btn--ghost" data-when="during" href={url("call-for-abstracts")}>
+              Submit an abstract by {abs.deadline && formatDate(abs.deadline, { year: false })}
+            </a>
+          </TimeWindow>
+        )}
+        {hasPage("programme") && <a class="btn btn--ghost" href={url("programme")}>See the programme</a>}
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <Mark size={300} class="hero-mark" />
+      <Countdown />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(180deg, var(--c-hero-from), var(--c-bg) 90%);
+    padding-block: var(--space-8) var(--space-7);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: var(--space-7);
+    align-items: center;
+  }
+  .hero-copy { display: grid; gap: var(--space-5); justify-items: start; }
+  .hero h1 { display: grid; gap: var(--space-2); }
+  .hero-name { font-size: var(--fs-hero); font-weight: 800; letter-spacing: -0.015em; color: var(--c-primary); line-height: 1; }
+  .hero-full { font: 600 clamp(1.1rem, 1rem + 0.6vw, 1.45rem) / 1.3 var(--f-body); color: var(--c-muted); letter-spacing: 0.01em; }
+  .hero-tagline { font-size: 1.2rem; max-width: 46ch; }
+  .hero-facts { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-5); color: var(--c-muted); }
+  .hero-facts strong { color: var(--c-text); }
+  .hero-side { display: grid; gap: var(--space-5); justify-items: center; }
+  .hero-side :global(.hero-mark) { width: min(300px, 70vw); height: auto; }
+  .hero-side :global(.countdown) { width: 100%; max-width: 380px; }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-side { justify-items: start; }
+    .hero-side :global(.hero-mark) { display: none; }
+  }
+</style>

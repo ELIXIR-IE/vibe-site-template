@@ -1,0 +1,25 @@
+---
+import Page from "../layouts/Page.astro";
+import SponsorStrip from "../components/SponsorStrip.astro";
+import Callout from "../components/Callout.astro";
+import { site, pageLabel } from "../lib/data";
+---
+
+<Page
+  title={pageLabel("sponsors")}
+  eyebrow={site.event.title}
+  intro="The organisations that make a free, open conference possible."
+>
+  <div class="sponsor-page">
+    <SponsorStrip large />
+    {site.event.contact_email && (
+      <Callout tone="quiet" title="Support the conference">
+        <p>Sponsorship keeps registration free for everyone. Email <a href={`mailto:${site.event.contact_email}`}>{site.event.contact_email}</a> to talk about options.</p>
+      </Callout>
+    )}
+  </div>
+</Page>
+
+<style>
+  .sponsor-page { display: grid; gap: var(--space-7); margin-top: var(--space-5); }
+</style>
